@@ -8,7 +8,7 @@ RAG is one of many modular capabilities and is not treated as the core of the sy
 
 The goal of the Assistant is to run various LLM providers and tools under a common core.
 
-...
+
 
 ## Design Principles
 
@@ -20,7 +20,6 @@ The goal of the Assistant is to run various LLM providers and tools under a comm
 - Incremental development
 - Small focused components
 
-...
 
 ## High-Level Architecture
 
@@ -28,16 +27,24 @@ The goal of the Assistant is to run various LLM providers and tools under a comm
                 User
                   │
                   ▼
-          Assistant Core
+             Assistant
                   │
-        ┌─────────┴─────────┐
-        │                   │
-     LLM Layer         Tool System
-        │                   │
-        ▼                   ▼
-   LLM Providers     Registered Tools
+                  ▼
+            BaseWorkflow
+                  │
+     ┌────────────┼────────────┐
+     │            │            │
+     ▼            ▼            ▼
+ChatWorkflow RAGWorkflow AgentWorkflow
+                  │
+                  ▼
+            Core Services
+                  │
+                  ▼
+         Infrastructure Layer
 ```
-...
+
+
 
 ## Core Components
 
@@ -51,20 +58,129 @@ The goal of the Assistant is to run various LLM providers and tools under a comm
 | Planner        | Multi-step execution             |
 | RAG            | Knowledge retrieval              |
 
-...
+
+## Assistant
+
+The Assistant is the application's orchestration layer and the main entry point of the system.
+
+Its responsibility is to coordinate the request lifecycle by delegating execution to the configured workflow.
+
+The Assistant intentionally contains no business logic.
+
+### Responsibilities
+
+- Receive incoming requests.
+- Delegate execution to the configured workflow.
+- Return the generated response.
+
+### Non-Responsibilities
+
+The Assistant is **not** responsible for:
+
+- Building prompts
+- Managing memory
+- Executing tools
+- Performing retrieval
+- Calling LLM providers directly
+
+These responsibilities belong to the workflow and its underlying services.
+
+
+
+## Workflow
+
+A workflow defines how a request is processed.
+
+Different workflows may implement different execution strategies while exposing the same public interface.
+
+Examples include:
+
+- Chat Workflow
+- RAG Workflow
+- Agent Workflow
+
+### Responsibilities
+
+- Receive a request from the Assistant.
+- Coordinate the execution flow.
+- Use the required services.
+- Produce a response.
+
+### Workflow Dependencies
+
+Each workflow only depends on the services it requires.
+
+Examples include:
+
+- LLM
+- Prompt Builder
+- Memory
+- Retriever
+- Planner
+- Tool Manager
+
+
+## Request & Response
+
+The system communicates using two shared domain models.
+
+### Request
+
+Represents the user's input together with any metadata required to process it.
+
+### Response
+
+Represents the final output produced by the workflow.
+
+Keeping Request and Response as shared models provides a consistent interface across all workflows.
+
+
+## Dependency Graph
+
+```text
+                Assistant
+                     │
+                     ▼
+                BaseWorkflow
+                     │
+      ┌──────────────┼──────────────┐
+      │              │              │
+ChatWorkflow   RAGWorkflow   AgentWorkflow
+      │              │              │
+      ▼              ▼              ▼
+ PromptBuilder  Retriever      Planner
+      │              │              │
+      └──────┬───────┴───────┬──────┘
+             ▼               ▼
+          Memory       Tool Manager
+                 \      /
+                  \    /
+                   ▼  ▼
+                 BaseLLM
+```
+
 
 ## Request Lifecycle
 
 ```text
-User Message
-      │
+ User
+   │
+   ▼
+Request
+   │
+   ▼
 Assistant
-      │
-LLM
-      │
+   │
+   ▼
+Workflow
+   │
+   ▼
 Response
+   │
+   ▼
+ User
 ```
-...
+
 
 ## Future Extensions
 
@@ -74,7 +190,7 @@ Response
 - Vision
 - Web UI
 
-...
+
 
 ## Architecture Decisions
 
