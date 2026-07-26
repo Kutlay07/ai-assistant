@@ -1,3 +1,4 @@
+import pytest
 from ai_assistant.core.models import Request
 
 
@@ -8,8 +9,8 @@ def test_request_stores_input():
     
 
 
-# def test_request_is_immutable():
-#     request = Request(input="Hello")
+def test_request_is_immutable():
+    request = Request(input="Hello")
 
-#     with pytest.raises(AttributeError):
-#         request.input = "Hi"
+    with pytest.raises(AttributeError):
+        request.input = "Hi"

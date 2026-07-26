@@ -63,9 +63,9 @@ ChatWorkflow RAGWorkflow AgentWorkflow
 
 The Assistant is the application's orchestration layer and the main entry point of the system.
 
-Its responsibility is to coordinate the request lifecycle by delegating execution to the configured workflow.
+The Assistant receives a workflow implementation through constructor injection and delegates request execution to the configured workflow.
 
-The Assistant intentionally contains no business logic.
+The Assistant intentionally contains no business logic.tentionally contains no business logic.
 
 ### Responsibilities
 
