@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a production-ready, provider-independent AI Assistant platform.
+This project aims to become a production-ready, provider-independent AI Assistant platform.
 
 RAG is one of many modular capabilities and is not treated as the core of the system.
 
@@ -65,7 +65,7 @@ The Assistant is the application's orchestration layer and the main entry point 
 
 The Assistant receives a workflow implementation through constructor injection and delegates request execution to the configured workflow.
 
-The Assistant intentionally contains no business logic.tentionally contains no business logic.
+The Assistant intentionally contains no business logic.
 
 ### Responsibilities
 
@@ -143,6 +143,23 @@ Represents the user's input together with any metadata required to process it.
 Represents the final output produced by the workflow.
 
 Keeping Request and Response as shared models provides a consistent interface across all workflows.
+
+
+## LLM
+
+The assistant communicates with language models through a shared abstraction.
+
+### BaseLLM
+
+`BaseLLM` defines the common contract implemented by all language model providers.
+
+The core system depends only on this abstraction, allowing providers to be replaced without affecting the application architecture.
+
+Future implementations may include:
+
+- MockLLM
+- LocalLLM
+- RemoteLLM
 
 
 ## Dependency Graph
