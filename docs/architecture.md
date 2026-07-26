@@ -100,34 +100,27 @@ Examples include:
 - Agent Workflow
 
 
+
 ## Chat Workflow
 
-Chat Workflow is the first concrete workflow implementation.
+ChatWorkflow is the first concrete workflow implementation.
 
-It processes chat-based requests through the workflow interface and produces responses using the shared Request and Response domain models.
+It processes chat requests by coordinating the interaction between the PromptBuilder and the configured LLM implementation.
 
-The current implementation prepares the architecture for future LLM integration.
-
+The workflow remains focused on orchestration while relying on abstractions for prompt construction and language model generation.
 
 ### Responsibilities
 
-- Receive a request from the Assistant.
-- Coordinate the execution flow.
-- Use the required services.
-- Produce a response.
+- Receive a request.
+- Build a prompt using the PromptBuilder.
+- Generate a response through the configured LLM.
+- Return the generated response.
 
-### Workflow Dependencies
+### Dependencies
 
-Each workflow only depends on the services it requires.
+- PromptBuilder
+- BaseLLM
 
-Examples include:
-
-- LLM
-- Prompt Builder
-- Memory
-- Retriever
-- Planner
-- Tool Manager
 
 
 ## Request & Response
