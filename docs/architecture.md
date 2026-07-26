@@ -99,6 +99,16 @@ Examples include:
 - RAG Workflow
 - Agent Workflow
 
+
+## Chat Workflow
+
+Chat Workflow is the first concrete workflow implementation.
+
+It processes chat-based requests through the workflow interface and produces responses using the shared Request and Response domain models.
+
+The current implementation prepares the architecture for future LLM integration.
+
+
 ### Responsibilities
 
 - Receive a request from the Assistant.
