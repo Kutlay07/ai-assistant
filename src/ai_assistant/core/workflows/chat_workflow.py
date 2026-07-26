@@ -1,5 +1,5 @@
 from ai_assistant.core.models import Request, Response
-from ai_assistant.core.workflows import BaseWorkflow
+from .base_workflow import BaseWorkflow
 
 
 class ChatWorkflow(BaseWorkflow):
