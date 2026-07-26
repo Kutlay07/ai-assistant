@@ -162,6 +162,17 @@ Future implementations may include:
 - RemoteLLM
 
 
+
+## Prompt Builder
+
+PromptBuilder is responsible for constructing prompts from incoming requests.
+
+Prompt generation is isolated from workflow logic to keep workflows focused on orchestration.
+
+The initial implementation returns the user's input directly and serves as the foundation for future prompt templating and context composition.
+
+
+
 ## Dependency Graph
 
 ```text
