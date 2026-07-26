@@ -237,8 +237,7 @@ Response
 ## Architecture Decisions
 
 - ADR-0001 Project Philosophy
-- ADR-0002 LLM Abstraction
-- ADR-0003 Tool Architecture
+- ADR-0002 Provider Independence
 
 ## Current Status
 
