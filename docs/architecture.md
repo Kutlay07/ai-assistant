@@ -159,7 +159,7 @@ The core system depends only on this abstraction, allowing providers to be repla
 
 Current implementations:
 
--MockLLM
+- MockLLM
 
 Future implementations may include:
 
