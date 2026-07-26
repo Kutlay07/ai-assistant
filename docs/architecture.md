@@ -155,11 +155,22 @@ The assistant communicates with language models through a shared abstraction.
 
 The core system depends only on this abstraction, allowing providers to be replaced without affecting the application architecture.
 
+### Implementations
+
+Current implementations:
+
+-MockLLM
+
 Future implementations may include:
 
-- MockLLM
 - LocalLLM
 - RemoteLLM
+
+### MockLLM
+
+MockLLM is a lightweight implementation of the BaseLLM interface intended for development and testing.
+
+It provides deterministic responses without relying on external language model providers.
 
 
 
