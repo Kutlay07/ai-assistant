@@ -54,18 +54,18 @@ Builder
 
 ## Core Components
 
-| Component      | Responsibility             |
-| -------------- | -------------------------- |
+| Component      | Responsibility                 |
+| -------------- | ------------------------------ |
 | Assistant      | Coordinate workflow execution                 |
 | Workflows      | Execute request processing strategies         |
+| Documents      | Shared retrieval domain models                |
 | Prompt Builder | Construct reusable prompts                    |
 | Memory         | Store conversation history                    |
 | LLM            | Provider-independent language model interface |
-| Embedder   | Generate vector representations               |
+| Embedder       | Generate vector representations               |
 | Tools          | Execute external capabilities                 |
 | Retriever      | Knowledge retrieval *(future)*                |
 | Planner        | Multi-step planning *(future)*                |
-
 
 ## Assistant
 
@@ -268,6 +268,28 @@ Future implementations may include:
 MockMemory is a lightweight in-memory implementation intended for development and testing.
 
 It stores conversation history without relying on external storage systems.
+
+
+
+## Documents
+
+Documents represent shared retrieval models used throughout the assistant.
+
+They provide a provider-independent representation of textual content and serve as the foundation for ingestion, chunking, embedding, and retrieval.
+
+### Models
+
+Current models:
+
+- `Document`
+- `Chunk`
+
+Future extensions may include:
+
+- Metadata
+- Source information
+- Chunk relationships
+- Embedding references
 
 
 
