@@ -107,7 +107,7 @@ Examples include:
 - Agent Workflow
 
 
-All workflows coordinate execution by composing shared abstractions such as PromptBuilder, BaseLLM, BaseMemory, and BaseTool.
+All workflows coordinate execution by composing shared abstractions such as `PromptBuilder`, `BaseLLM`, `BaseMemory`, and `BaseTool`.
 
 Business logic remains distributed across reusable components rather than inside workflow implementations.
 
@@ -131,10 +131,33 @@ The workflow remains focused on orchestration while delegating prompt constructi
 
 ### Dependencies
 
-- BaseMemory
-- PromptBuilder
-- BaseLLM
+- `BaseMemory`
+- `PromptBuilder`
+- `BaseLLM`
 
+
+## Agent Workflow
+
+AgentWorkflow provides the foundation for future agent-based execution.
+
+It coordinates prompt generation, memory, language model interaction, and external tool execution through shared abstractions.
+
+### Responsibilities
+
+- Receive a request.
+- Retrieve conversation history from memory.
+- Build a prompt using the PromptBuilder.
+- Generate a response through the configured LLM.
+- Execute external tools.
+- Store the conversation in memory.
+- Return the generated response.
+
+### Dependencies
+
+- `PromptBuilder`
+- `BaseMemory`
+- `BaseLLM`
+- `BaseTool`
 
 
 ## Request & Response
@@ -183,7 +206,7 @@ It provides deterministic responses without relying on external language model p
 
 ## Prompt Builder
 
-PromptBuilder is responsible for constructing prompts from reusable templates.
+The `PromptBuilder` component is responsible for constructing prompts from reusable templates.
 
 Prompt generation is isolated from workflow logic to keep workflows focused on orchestration.
 
@@ -197,7 +220,7 @@ Prompt templates are stored separately from application logic, making prompt con
 
 Memory is responsible for storing and retrieving conversation history independently from workflow logic.
 
-ChatWorkflow interacts with memory through the `BaseMemory` abstraction to retrieve conversation history and store newly generated messages.
+Workflows interacts with memory through the `BaseMemory` abstraction to retrieve conversation history and store newly generated messages.
 
 The assistant communicates with memory implementations through the `BaseMemory` abstraction.
 
@@ -225,7 +248,7 @@ It stores conversation history without relying on external storage systems.
 
 Tools provide a common interface for executing external capabilities independently from workflow logic.
 
-The assistant communicates with tools through the `BaseTool` abstraction.
+Workflows communicate with tools through the `BaseTool` abstraction.
 
 ### Implementations
 
