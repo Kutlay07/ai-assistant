@@ -66,6 +66,7 @@ Builder
 | Tools          | Execute external capabilities                 |
 | Retriever      | Knowledge retrieval *(future)*                |
 | Planner        | Multi-step planning *(future)*                |
+| Text Splitter  | Divide documents into overlapping chunks |
 
 ## Assistant
 
@@ -268,6 +269,16 @@ Future implementations may include:
 MockMemory is a lightweight in-memory implementation intended for development and testing.
 
 It stores conversation history without relying on external storage systems.
+
+
+
+## Text Splitter
+
+TextSplitter is responsible for dividing documents into overlapping chunks before retrieval.
+
+Chunking is isolated from retrieval and embedding logic to keep each component focused on a single responsibility.
+
+The generated chunks become the input for the embedding pipeline.
 
 
 
