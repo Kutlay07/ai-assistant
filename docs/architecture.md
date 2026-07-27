@@ -210,6 +210,33 @@ It stores conversation history without relying on external storage systems.
 
 
 
+## Tools
+
+Tools provide a common interface for executing external capabilities independently from workflow logic.
+
+The assistant communicates with tools through the `BaseTool` abstraction.
+
+### Implementations
+
+Current implementations:
+
+- MockTool
+
+Future implementations may include:
+
+- CalculatorTool
+- SearchTool
+- WeatherTool
+- FileTool
+
+### MockTool
+
+MockTool is a lightweight implementation of the `BaseTool` interface intended for development and testing.
+
+It provides deterministic responses without relying on external services.
+
+
+
 ## Dependency Graph
 
 ```text
