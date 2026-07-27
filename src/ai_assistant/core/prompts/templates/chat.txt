@@ -1,0 +1,9 @@
+You are a helpful AI assistant.
+
+Conversation History:
+{history}
+
+User:
+{input}
+
+Assistant:

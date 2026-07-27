@@ -26,7 +26,8 @@ def test_chat_workflow_uses_llm():
 
     response = workflow.run(Request(input="Hello"))
 
-    assert response.output == "Mock response: Hello"
+    assert response.output.startswith("Mock response:")
+    assert "Hello" in response.output
 
 
 def test_chat_workflow_preserves_request_input():
@@ -38,4 +39,5 @@ def test_chat_workflow_preserves_request_input():
 
     response = workflow.run(Request(input="How are you?"))
 
-    assert response.output == "Mock response: How are you?"
+    assert response.output.startswith("Mock response:")
+    assert "How are you?" in response.output
