@@ -41,26 +41,27 @@ ChatWorkflow RAGWorkflow AgentWorkflow
                   ▼
           Shared Components
                   │
-      ┌───────────┼───────────┐
-      ▼           ▼           ▼
- PromptBuilder  BaseMemory  BaseLLM
+ ┌────────┬────────┬────────┬────────┐
+ ▼        ▼        ▼        ▼
+Prompt  Memory   LLM   Embedder
+Builder
                   │
                   ▼
-               BaseTool
+                BaseTool
 ```
 
 
 
 ## Core Components
 
-
-| Component      | Responsibility               |
-| ---------------|----------------------------- |
+| Component      | Responsibility             |
+| -------------- | -------------------------- |
 | Assistant      | Coordinate workflow execution                 |
 | Workflows      | Execute request processing strategies         |
 | Prompt Builder | Construct reusable prompts                    |
 | Memory         | Store conversation history                    |
 | LLM            | Provider-independent language model interface |
+| Embedder   | Generate vector representations               |
 | Tools          | Execute external capabilities                 |
 | Retriever      | Knowledge retrieval *(future)*                |
 | Planner        | Multi-step planning *(future)*                |
@@ -204,6 +205,32 @@ It provides deterministic responses without relying on external language model p
 
 
 
+## Embedder
+
+Embedders generate vector representations of text for semantic search and retrieval.
+
+The assistant communicates with embedding providers through the `BaseEmbedder` abstraction.
+
+### Implementations
+
+Current implementations:
+
+- MockEmbedder
+
+Future implementations may include:
+
+- SentenceTransformerEmbedder
+- OpenAIEmbedder
+- VoyageAIEmbedder
+
+### MockEmbedder
+
+MockEmbedder is a lightweight implementation of the `BaseEmbedder` interface intended for development and testing.
+
+It provides deterministic embeddings without relying on external embedding providers.
+
+
+
 ## Prompt Builder
 
 The `PromptBuilder` component is responsible for constructing prompts from reusable templates.
@@ -289,6 +316,9 @@ It provides deterministic responses without relying on external services.
         │
         ▼
     BaseMemory
+        │
+        ▼
+    BaseEmbedder
         │
         ▼
       BaseLLM
