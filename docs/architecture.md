@@ -36,27 +36,34 @@ The goal of the Assistant is to run various LLM providers and tools under a comm
      │            │            │
      ▼            ▼            ▼
 ChatWorkflow RAGWorkflow AgentWorkflow
+     │            │            │
+     └────────────┼────────────┘
+                  ▼
+          Shared Components
+                  │
+      ┌───────────┼───────────┐
+      ▼           ▼           ▼
+ PromptBuilder  BaseMemory  BaseLLM
                   │
                   ▼
-            Core Services
-                  │
-                  ▼
-         Infrastructure Layer
+               BaseTool
 ```
 
 
 
 ## Core Components
 
-| Component      | Responsibility                   |
-| -------------- | -------------------------------- |
-| Assistant Core | Coordinate the request lifecycle |
-| LLM Layer      | Provider abstraction             |
-| Tool System    | Execute external tools           |
-| Memory         | Store conversation context       |
-| Prompt Builder | Construct prompts                |
-| Planner        | Multi-step execution             |
-| RAG            | Knowledge retrieval              |
+
+| Component      | Responsibility               |
+| ---------------|----------------------------- |
+| Assistant      | Coordinate workflow execution                 |
+| Workflows      | Execute request processing strategies         |
+| Prompt Builder | Construct reusable prompts                    |
+| Memory         | Store conversation history                    |
+| LLM            | Provider-independent language model interface |
+| Tools          | Execute external capabilities                 |
+| Retriever      | Knowledge retrieval *(future)*                |
+| Planner        | Multi-step planning *(future)*                |
 
 
 ## Assistant
@@ -100,6 +107,10 @@ Examples include:
 - Agent Workflow
 
 
+All workflows coordinate execution by composing shared abstractions such as PromptBuilder, BaseLLM, BaseMemory, and BaseTool.
+
+Business logic remains distributed across reusable components rather than inside workflow implementations.
+
 
 ## Chat Workflow
 
@@ -123,31 +134,6 @@ The workflow remains focused on orchestration while delegating prompt constructi
 - BaseMemory
 - PromptBuilder
 - BaseLLM
-
-
-
-## Agent Workflow
-
-AgentWorkflow provides the foundation for future agent-based execution.
-
-It coordinates prompt generation, language model interaction, memory, and external tools through shared abstractions.
-
-### Responsibilities
-
-- Receive a request.
-- Retrieve conversation history.
-- Build a prompt.
-- Generate an LLM response.
-- Execute external tools.
-- Store conversation history.
-- Return the generated response.
-
-### Dependencies
-
-- PromptBuilder
-- BaseLLM
-- BaseMemory
-- BaseTool
 
 
 
@@ -265,25 +251,24 @@ It provides deterministic responses without relying on external services.
 ## Dependency Graph
 
 ```text
-                Assistant
-                     │
-                     ▼
-                BaseWorkflow
-                     │
-      ┌──────────────┼──────────────┐
-      │              │              │
-ChatWorkflow   RAGWorkflow   AgentWorkflow
-      │              │              │
-      ▼              ▼              ▼
- PromptBuilder  Retriever      Planner
-      │              │              │
-      └──────┬───────┴───────┬──────┘
-             ▼               ▼
-          Memory       Tool Manager
-                 \      /
-                  \    /
-                   ▼  ▼
-                 BaseLLM
+                    Assistant
+                         │
+                         ▼
+                   BaseWorkflow
+        ┌────────────┼────────────┐
+        │            │            │
+        ▼            ▼            ▼
+ ChatWorkflow   RAGWorkflow   AgentWorkflow
+        │            │            │
+        ├────────────┼────────────┤
+        ▼            ▼            ▼
+ PromptBuilder  Retriever   BaseTool
+        │
+        ▼
+    BaseMemory
+        │
+        ▼
+      BaseLLM
 ```
 
 
@@ -302,6 +287,10 @@ Assistant
 Workflow
    │
    ▼
+Shared Components
+(Prompt, Memory, LLM, Tools)
+   │
+   ▼
 Response
    │
    ▼
@@ -311,6 +300,8 @@ Response
 
 ## Future Extensions
 
+- Planning
+- Function Calling
 - MCP
 - Multi-Agent
 - Voice
