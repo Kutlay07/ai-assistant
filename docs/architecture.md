@@ -105,9 +105,9 @@ Examples include:
 
 ChatWorkflow is the first concrete workflow implementation.
 
-It processes chat requests by coordinating the interaction between the PromptBuilder and the configured LLM implementation.
+It coordinates the interaction between memory, prompt construction, and language model generation through shared abstractions.
 
-The workflow remains focused on orchestration while relying on abstractions for prompt construction and language model generation.
+The workflow remains focused on orchestration while delegating prompt construction, conversation history, and response generation to dedicated components.
 
 ### Responsibilities
 
@@ -172,11 +172,13 @@ It provides deterministic responses without relying on external language model p
 
 ## Prompt Builder
 
-PromptBuilder is responsible for constructing prompts from incoming requests.
+PromptBuilder is responsible for constructing prompts from reusable templates.
 
 Prompt generation is isolated from workflow logic to keep workflows focused on orchestration.
 
-The initial implementation returns the user's input directly and serves as the foundation for future prompt templating and context composition.
+It combines conversation history and user input to produce prompts for language model generation.
+
+Prompt templates are stored separately from application logic, making prompt construction reusable and easier to maintain across workflows.
 
 
 
