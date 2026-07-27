@@ -177,6 +177,32 @@ The initial implementation returns the user's input directly and serves as the f
 
 
 
+## Memory
+
+Memory is responsible for storing and retrieving conversation history independently from workflow logic.
+
+The assistant communicates with memory implementations through the `BaseMemory` abstraction.
+
+### Implementations
+
+Current implementations:
+
+- MockMemory
+
+Future implementations may include:
+
+- FileMemory
+- SQLiteMemory
+- RedisMemory
+
+### MockMemory
+
+MockMemory is a lightweight in-memory implementation intended for development and testing.
+
+It stores conversation history without relying on external storage systems.
+
+
+
 ## Dependency Graph
 
 ```text
