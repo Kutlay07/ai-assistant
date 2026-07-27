@@ -15,6 +15,9 @@ def test_split_returns_chunks():
     assert isinstance(chunks, list)
     assert isinstance(chunks[0], Chunk)
 
+    assert len(chunks) == 1
+    assert chunks[0].content == document.content
+
 
 def test_split_creates_multiple_chunks():
 
@@ -56,3 +59,38 @@ def test_invalid_chunk_parameters():
             chunk_size=10,
             overlap=10,
         )
+
+    with pytest.raises(ValueError):
+        TextSplitter(
+            chunk_size=10,
+            overlap=-1,
+        )
+
+    with pytest.raises(ValueError):
+        TextSplitter(
+            chunk_size=10,
+            overlap=11,
+        )
+
+
+def test_split_empty_document_returns_no_chunks():
+
+    splitter = TextSplitter()
+
+    document = Document(content="")
+
+    chunks = splitter.split(document)
+
+    assert chunks == []
+
+
+def test_split_short_document_returns_single_chunk():
+
+    splitter = TextSplitter(chunk_size=100)
+
+    document = Document(content="Hello")
+
+    chunks = splitter.split(document)
+
+    assert len(chunks) == 1
+    assert chunks[0].content == "Hello"
