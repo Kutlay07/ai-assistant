@@ -120,6 +120,7 @@ The workflow remains focused on orchestration while relying on abstractions for 
 
 ### Dependencies
 
+- BaseMemory
 - PromptBuilder
 - BaseLLM
 
