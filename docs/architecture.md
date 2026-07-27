@@ -112,12 +112,15 @@ The workflow remains focused on orchestration while relying on abstractions for 
 ### Responsibilities
 
 - Receive a request.
+- Retrieve conversation history from memory.
 - Build a prompt using the PromptBuilder.
 - Generate a response through the configured LLM.
+- Store the conversation in memory.
 - Return the generated response.
 
 ### Dependencies
 
+- BaseMemory
 - PromptBuilder
 - BaseLLM
 
@@ -180,6 +183,8 @@ The initial implementation returns the user's input directly and serves as the f
 ## Memory
 
 Memory is responsible for storing and retrieving conversation history independently from workflow logic.
+
+ChatWorkflow interacts with memory through the `BaseMemory` abstraction to retrieve conversation history and store newly generated messages.
 
 The assistant communicates with memory implementations through the `BaseMemory` abstraction.
 
