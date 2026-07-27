@@ -126,6 +126,31 @@ The workflow remains focused on orchestration while delegating prompt constructi
 
 
 
+## Agent Workflow
+
+AgentWorkflow provides the foundation for future agent-based execution.
+
+It coordinates prompt generation, language model interaction, memory, and external tools through shared abstractions.
+
+### Responsibilities
+
+- Receive a request.
+- Retrieve conversation history.
+- Build a prompt.
+- Generate an LLM response.
+- Execute external tools.
+- Store conversation history.
+- Return the generated response.
+
+### Dependencies
+
+- PromptBuilder
+- BaseLLM
+- BaseMemory
+- BaseTool
+
+
+
 ## Request & Response
 
 The system communicates using two shared domain models.
