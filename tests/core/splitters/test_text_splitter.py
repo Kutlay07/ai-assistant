@@ -8,7 +8,9 @@ def test_split_returns_chunks():
 
     splitter = TextSplitter()
 
-    document = Document(content="Hello World")
+    document = Document(
+        text="Hello World",
+        source="test",)
 
     chunks = splitter.split(document)
 
@@ -16,7 +18,7 @@ def test_split_returns_chunks():
     assert isinstance(chunks[0], Chunk)
 
     assert len(chunks) == 1
-    assert chunks[0].content == document.content
+    assert chunks[0].content == document.text
 
 
 def test_split_creates_multiple_chunks():
@@ -26,7 +28,9 @@ def test_split_creates_multiple_chunks():
         overlap=0,
     )
 
-    document = Document(content="Hello World")
+    document = Document(
+        text="Hello World",
+        source="test",)
 
     chunks = splitter.split(document)
 
@@ -40,7 +44,9 @@ def test_split_applies_overlap():
         overlap=2,
     )
 
-    document = Document(content="abcdef")
+    document = Document(
+        text="abcdef",
+        source="test",)
 
     chunks = splitter.split(document)
 
@@ -77,7 +83,9 @@ def test_split_empty_document_returns_no_chunks():
 
     splitter = TextSplitter()
 
-    document = Document(content="")
+    document = Document(
+        text="",
+        source="test",)
 
     chunks = splitter.split(document)
 
@@ -88,7 +96,9 @@ def test_split_short_document_returns_single_chunk():
 
     splitter = TextSplitter(chunk_size=100)
 
-    document = Document(content="Hello")
+    document = Document(
+        text="Hello",
+        source="test",)
 
     chunks = splitter.split(document)
 

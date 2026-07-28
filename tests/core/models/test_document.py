@@ -3,6 +3,8 @@ from ai_assistant.core.models import Document
 
 def test_document_stores_content():
 
-    document = Document(content="Hello")
+    document = Document(
+        text="Hello",
+        source="test",)
 
-    assert document.content == "Hello"
+    assert document.text == "Hello"

@@ -27,10 +27,10 @@ class TextSplitter:
         
         start = 0
         
-        while start < len(document.content):
+        while start < len(document.text):
             end = start + self.chunk_size
             
-            chunk_text = document.content[start:end]
+            chunk_text = document.text[start:end]
             
             chunks.append(Chunk(content=chunk_text))
             

@@ -1,6 +1,9 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import Any
 
-
-@dataclass(slots=True)
+@dataclass
 class Document:
-    content: str
+    text: str
+    source: str
+    title: str | None = None
+    metadata: dict[str, Any] = field(default_factory=dict)
