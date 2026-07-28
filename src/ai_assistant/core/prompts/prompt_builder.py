@@ -29,9 +29,9 @@ class PromptBuilder:
         context_text = ""
 
         if context:
-            context_text = "\n".join(
-                chunk.content for chunk in context
-            )
+            context_text = "\n\n".join(
+                f"[Chunk {i + 1}]\n{chunk.content}"
+                for i, chunk in enumerate(context))
 
         return template_text.format(
             history=history_text,
