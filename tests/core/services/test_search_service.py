@@ -57,3 +57,28 @@ def test_search_returns_empty_list_when_no_chunks():
     chunks = service.search("Python")
 
     assert chunks == []
+
+
+def test_search_respects_top_k():
+
+    store = MockVectorStore()
+
+    store.add([
+        Chunk(content="A"),
+        Chunk(content="B"),
+        Chunk(content="C"),
+    ])
+
+    service = SearchService(
+        MockRetriever(
+            embedder=MockEmbedder(),
+            vector_store=store,
+        )
+    )
+
+    chunks = service.search(
+        "python",
+        top_k=2,
+    )
+
+    assert len(chunks) == 2

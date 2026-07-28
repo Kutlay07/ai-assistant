@@ -80,3 +80,26 @@ def test_retrieve_uses_embedder():
     results = retriever.retrieve("Hello")
 
     assert isinstance(results, list)
+
+
+def test_retrieve_respects_top_k():
+
+    store = MockVectorStore()
+
+    store.add([
+        Chunk(content="A"),
+        Chunk(content="B"),
+        Chunk(content="C"),
+    ])
+
+    retriever = MockRetriever(
+        embedder=MockEmbedder(),
+        vector_store=store,
+    )
+
+    chunks = retriever.retrieve(
+        query="python",
+        top_k=2,
+    )
+
+    assert len(chunks) == 2
