@@ -163,6 +163,31 @@ It coordinates prompt generation, memory, language model interaction, and extern
 - `BaseTool`
 
 
+
+## RAG Workflow
+
+RAGWorkflow augments user requests with retrieved context before generating a response.
+
+It coordinates retrieval, prompt construction, language model generation, and conversation memory through shared abstractions.
+
+### Responsibilities
+
+- Receive a request.
+- Retrieve relevant document chunks.
+- Build a retrieval-augmented prompt.
+- Generate a response through the configured LLM.
+- Store the conversation in memory.
+- Return the generated response.
+
+### Dependencies
+
+- BaseRetriever
+- PromptBuilder
+- BaseLLM
+- BaseMemory
+
+
+
 ## Request & Response
 
 The system communicates using two shared domain models.
@@ -423,6 +448,8 @@ It provides deterministic responses without relying on external services.
 
 ## Request Lifecycle
 
+## Request Lifecycle
+
 ```text
  User
    │
@@ -438,6 +465,8 @@ Workflow
    ├────────► Memory
    ├────────► Retriever
    ├────────► PromptBuilder
+   │               │
+   │               ▼
    ├────────► Tools
    └────────► LLM
                  │
