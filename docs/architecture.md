@@ -54,20 +54,20 @@ Builder
 
 ## Core Components
 
-| Component      | Responsibility                 |
-| -------------- | ------------------------------ |
-| Assistant      | Coordinate workflow execution                 |
-| Workflows      | Execute request processing strategies         |
-| Documents      | Shared retrieval domain models                |
-| Prompt Builder | Construct reusable prompts                    |
-| Memory         | Store conversation history                    |
-| LLM            | Provider-independent language model interface |
-| Embedder       | Generate vector representations               |
-| Vector Store   | Store and search embeddings |
-| Tools          | Execute external capabilities                 |
-| Retriever      | Knowledge retrieval *(future)*                |
-| Planner        | Multi-step planning *(future)*                |
-| Text Splitter  | Divide documents into overlapping chunks |
+| Component      | Responsibility                |
+| -------------- | ----------------------------- |
+| Assistant      | Coordinate workflow execution                |
+| Workflows      | Execute request processing strategies        |
+| Documents      | Shared retrieval domain models               |
+| Text Splitter  | Divide documents into overlapping chunks     |
+| Embedder       | Generate vector representations              |
+| Vector Store   | Store and search embeddings                  |
+| Retriever      | Retrieve relevant document chunks            |
+| Prompt Builder | Construct reusable prompts                   |
+| Memory         | Store conversation history                   |
+| LLM            | Provider-independent language model interface|
+| Tools          | Execute external capabilities                |
+| Planner        | Multi-step planning *(future)*               |
 
 ## Assistant
 
@@ -332,6 +332,39 @@ It stores chunks and returns deterministic search results without relying on ext
 
 
 
+## Retriever
+
+Retriever is responsible for retrieving the most relevant document chunks for a user query.
+
+It combines embedding generation and vector search through shared abstractions while remaining independent from concrete providers.
+
+The assistant communicates with retrieval implementations through the `BaseRetriever` abstraction.
+
+### Implementations
+
+Current implementations:
+
+- MockRetriever
+
+Future implementations may include:
+
+- SemanticRetriever
+- HybridRetriever
+- MultiVectorRetriever
+
+### Dependencies
+
+- BaseEmbedder
+- BaseVectorStore
+
+### MockRetriever
+
+MockRetriever is a lightweight implementation intended for development and testing.
+
+It retrieves document chunks by combining the configured embedder and vector store without relying on external retrieval systems.
+
+
+
 ## Tools
 
 Tools provide a common interface for executing external capabilities independently from workflow logic.
@@ -370,22 +403,21 @@ It provides deterministic responses without relying on external services.
         │            │            │
         ▼            ▼            ▼
  ChatWorkflow   RAGWorkflow   AgentWorkflow
-        │            │            │
-        ├────────────┼────────────┤
-        ▼            ▼            ▼
-   PromptBuilder  Retriever   BaseTool
-        │
-        ▼
-    BaseMemory
-        │
-        ▼
-    BaseEmbedder
-        │
-        ▼
-    BaseVectorStore
-        │
-        ▼
-      BaseLLM
+                         │
+                         ▼
+                    BaseRetriever
+                  ┌──────┴──────┐
+                  ▼             ▼
+            BaseEmbedder  BaseVectorStore
+                  │
+                  ▼
+             PromptBuilder
+                  │
+                  ▼
+               BaseMemory
+                  │
+                  ▼
+                BaseLLM
 ```
 
 
@@ -403,15 +435,17 @@ Assistant
    ▼
 Workflow
    │
-   ▼
-Shared Components
-(Prompt, Memory, LLM, Tools)
-   │
-   ▼
-Response
-   │
-   ▼
- User
+   ├────────► Memory
+   ├────────► Retriever
+   ├────────► PromptBuilder
+   ├────────► Tools
+   └────────► LLM
+                 │
+                 ▼
+             Response
+                 │
+                 ▼
+               User
 ```
 
 
