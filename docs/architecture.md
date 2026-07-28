@@ -483,22 +483,25 @@ The ingestion pipeline prepares external knowledge sources for retrieval.
 Document Source
       │
       ▼
-Loader
+    Indexer
       │
       ▼
-Document
+    Loader
       │
       ▼
-Text Splitter
+   Document
       │
       ▼
-Chunk
+ TextSplitter
       │
       ▼
-Embedder
+    Chunks
       │
       ▼
-Vector Store
+   Embedder
+      │
+      ▼
+ Vector Store
 ```
 
 
