@@ -475,6 +475,11 @@ Workflow
 ```
 
 
+### Retrieval
+
+The retrieval API supports configurable parameters (e.g. `top_k`) to enable flexible semantic search across workflows.
+
+
 
 ## Document Ingestion Pipeline
 

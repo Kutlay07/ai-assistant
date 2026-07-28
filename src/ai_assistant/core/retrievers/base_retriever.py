@@ -1,6 +1,7 @@
-from abc import ABC, abstractmethod
-
 from ..models import Chunk
+from ..models import Chunk, RetrievalOptions
+
+from abc import ABC, abstractmethod
 
 
 class BaseRetriever(ABC):
@@ -9,7 +10,7 @@ class BaseRetriever(ABC):
     def retrieve(
         self,
         query: str,
-        top_k: int=5,
+        options: RetrievalOptions | None = None,
     ) -> list[Chunk]:
         
         pass
