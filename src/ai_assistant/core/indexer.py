@@ -1,9 +1,10 @@
 from .loaders import BaseLoader
-from .splitters import TextSplitter
 from .embedders import BaseEmbedder
 from .vector_stores import BaseVectorStore
+from .splitters import BaseSplitter
 
 from pathlib import Path
+from collections.abc import Iterable
 
 
 
@@ -12,7 +13,7 @@ class Indexer:
     def __init__(
         self,
         loader: BaseLoader,
-        splitter: TextSplitter,
+        splitter: BaseSplitter,
         embedder: BaseEmbedder,
         vector_store: BaseVectorStore,
     ):
@@ -31,3 +32,8 @@ class Indexer:
             chunk.embedding = self._embedder.embed(chunk.content)
 
         self._vector_store.add(chunks)
+        
+        
+    def index_batch(self, paths: Iterable[str | Path]) -> None:
+        for path in paths:
+            self.index(path)

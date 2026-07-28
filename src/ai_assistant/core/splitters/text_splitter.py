@@ -32,7 +32,10 @@ class TextSplitter(BaseSplitter):
             
             chunk_text = document.text[start:end]
             
-            chunks.append(Chunk(content=chunk_text))
+            chunks.append(
+                Chunk(
+                    content=chunk_text,
+                    document=document,))
             
             start = end - self.overlap
 
