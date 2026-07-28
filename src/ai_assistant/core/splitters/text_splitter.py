@@ -1,7 +1,7 @@
 from ai_assistant.core.models import Document, Chunk
+from .base_splitter import BaseSplitter
 
-
-class TextSplitter:
+class TextSplitter(BaseSplitter):
 
     def __init__(
         self,
