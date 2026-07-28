@@ -54,20 +54,21 @@ Builder
 
 ## Core Components
 
-| Component      | Responsibility                |
-| -------------- | ----------------------------- |
-| Assistant      | Coordinate workflow execution                |
-| Workflows      | Execute request processing strategies        |
-| Documents      | Shared retrieval domain models               |
-| Text Splitter  | Divide documents into overlapping chunks     |
-| Embedder       | Generate vector representations              |
-| Vector Store   | Store and search embeddings                  |
-| Retriever      | Retrieve relevant document chunks            |
-| Prompt Builder | Construct reusable prompts                   |
-| Memory         | Store conversation history                   |
-| LLM            | Provider-independent language model interface|
-| Tools          | Execute external capabilities                |
-| Planner        | Multi-step planning *(future)*               |
+| Component      | Responsibility |
+|----------------|----------------|
+| Assistant      | Coordinate workflow execution |
+| Workflows      | Execute request processing strategies |
+| Documents      | Shared retrieval domain models |
+| Loaders        | Load documents from different data sources |
+| Text Splitter  | Divide documents into overlapping chunks |
+| Prompt Builder | Construct reusable prompts |
+| Memory         | Store conversation history |
+| LLM            | Provider-independent language model interface |
+| Embedder       | Generate vector representations |
+| Vector Store   | Store and search embeddings |
+| Retriever      | Retrieve relevant document chunks |
+| Tools          | Execute external capabilities |
+| Planner        | Multi-step planning |
 
 ## Assistant
 
@@ -429,24 +430,19 @@ It provides deterministic responses without relying on external services.
         ▼            ▼            ▼
  ChatWorkflow   RAGWorkflow   AgentWorkflow
                          │
-                         ▼
-                    BaseRetriever
-                  ┌──────┴──────┐
-                  ▼             ▼
-            BaseEmbedder  BaseVectorStore
-                  │
-                  ▼
-             PromptBuilder
-                  │
-                  ▼
-               BaseMemory
-                  │
-                  ▼
-                BaseLLM
+        ┌────────────────┼────────────────┐
+        │                │                │
+        ▼                ▼                ▼
+ BaseRetriever    PromptBuilder      BaseMemory
+        │                                 │
+   ┌────┴────┐                            │
+   ▼         ▼                            │
+BaseEmbedder BaseVectorStore              │
+                                          ▼
+                                      BaseLLM
 ```
 
 
-## Request Lifecycle
 
 ## Request Lifecycle
 
@@ -476,6 +472,35 @@ Workflow
                  ▼
                User
 ```
+
+
+
+## Document Ingestion Pipeline
+
+The ingestion pipeline prepares external knowledge sources for retrieval.
+
+```text
+Document Source
+      │
+      ▼
+Loader
+      │
+      ▼
+Document
+      │
+      ▼
+Text Splitter
+      │
+      ▼
+Chunk
+      │
+      ▼
+Embedder
+      │
+      ▼
+Vector Store
+```
+
 
 
 ## Future Extensions
