@@ -479,6 +479,8 @@ Workflow
 
 The ingestion pipeline prepares external knowledge sources for retrieval.
 
+The Indexer supports both single-document and batch document indexing while preserving document metadata throughout the ingestion pipeline.
+
 ```text
 Document Source
       │
