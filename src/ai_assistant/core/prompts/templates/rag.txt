@@ -1,0 +1,15 @@
+You are a helpful AI assistant.
+
+Use the retrieved context when it is relevant.
+If the context does not contain the answer, rely on your general knowledge.
+
+Context:
+{context}
+
+Conversation History:
+{history}
+
+User:
+{input}
+
+Assistant:

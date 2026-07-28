@@ -2,6 +2,7 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from ..models.request import Request
+from ..models import Chunk
 
 
 TEMPLATE_DIR = Path(__file__).parent / "templates"
@@ -19,12 +20,21 @@ class PromptBuilder:
         request: Request,
         history: Sequence[str],
         template: str = "chat",
+        context: list[Chunk] | None = None
     ) -> str:
         template_text = self._load_template(template)
 
         history_text = "\n".join(history)
+        
+        context_text = ""
+
+        if context:
+            context_text = "\n\n".join(
+                f"[Chunk {i + 1}]\n{chunk.content}"
+                for i, chunk in enumerate(context))
 
         return template_text.format(
             history=history_text,
             input=request.input,
+            context=context_text,
         )
