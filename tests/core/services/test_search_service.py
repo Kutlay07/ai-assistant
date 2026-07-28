@@ -3,6 +3,7 @@ from ai_assistant.core.retrievers import MockRetriever
 from ai_assistant.core.embedders import MockEmbedder
 from ai_assistant.core.vector_stores import MockVectorStore
 from ai_assistant.core.models import Chunk
+from ai_assistant.core.models import RetrievalOptions
 
 
 def test_search_returns_chunks():
@@ -78,7 +79,9 @@ def test_search_respects_top_k():
 
     chunks = service.search(
         "python",
-        top_k=2,
+        options = RetrievalOptions(top_k=2),
     )
 
     assert len(chunks) == 2
+    assert chunks[0].content == "A"
+    assert chunks[1].content == "B"
