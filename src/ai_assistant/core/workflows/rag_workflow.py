@@ -3,7 +3,7 @@ from .base_workflow import BaseWorkflow
 from ..llms import BaseLLM
 from ..prompts import PromptBuilder
 from ..memory import BaseMemory
-from ..retrievers import BaseRetriever
+from ..services import SearchService
 
 
 class RAGWorkflow(BaseWorkflow):
@@ -13,20 +13,20 @@ class RAGWorkflow(BaseWorkflow):
         self,
         llm: BaseLLM,
         prompt_builder: PromptBuilder,
-        retriever: BaseRetriever,
+        search_service: SearchService,
         memory: BaseMemory):
         
         super().__init__()
         
         self._llm = llm
         self._prompt_builder = prompt_builder
-        self._retriever = retriever
+        self._search_service = search_service
         self._memory = memory
         
     def run(self, request: Request) -> Response:
         history = self._memory.get_history()
         
-        context = self._retriever.retrieve(request.input)
+        context = self._search_service.search(request.input)
         
         prompt = self._prompt_builder.build(
             request=request,

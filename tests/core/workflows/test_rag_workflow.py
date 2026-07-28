@@ -2,6 +2,7 @@ from ai_assistant.core.llms import MockLLM
 from ai_assistant.core.memory import MockMemory
 from ai_assistant.core.models import Request, Response
 from ai_assistant.core.prompts import PromptBuilder
+from ai_assistant.core.services import SearchService
 from ai_assistant.core.retrievers import MockRetriever
 from ai_assistant.core.embedders import MockEmbedder
 from ai_assistant.core.vector_stores import MockVectorStore
@@ -14,9 +15,11 @@ def test_run_returns_response():
     workflow = RAGWorkflow(
         llm=MockLLM(),
         prompt_builder=PromptBuilder(),
-        retriever=MockRetriever(
-            embedder=MockEmbedder(),
-            vector_store=MockVectorStore(),
+        search_service=SearchService(
+            MockRetriever(
+                embedder=MockEmbedder(),
+                vector_store=MockVectorStore(),
+            )
         ),
         memory=MockMemory(),
     )
@@ -33,9 +36,11 @@ def test_run_stores_conversation():
     workflow = RAGWorkflow(
         llm=MockLLM(),
         prompt_builder=PromptBuilder(),
-        retriever=MockRetriever(
-            embedder=MockEmbedder(),
-            vector_store=MockVectorStore(),
+        search_service=SearchService(
+            MockRetriever(
+                embedder=MockEmbedder(),
+                vector_store=MockVectorStore(),
+            )
         ),
         memory=memory,
     )
@@ -58,9 +63,11 @@ def test_run_uses_retrieved_context():
     workflow = RAGWorkflow(
         llm=MockLLM(),
         prompt_builder=PromptBuilder(),
-        retriever=MockRetriever(
-            embedder=MockEmbedder(),
-            vector_store=store,
+        search_service=SearchService(
+            MockRetriever(
+                embedder=MockEmbedder(),
+                vector_store=store,
+            )
         ),
         memory=MockMemory(),
     )
@@ -77,9 +84,11 @@ def test_run_builds_rag_prompt():
     workflow = RAGWorkflow(
         llm=MockLLM(),
         prompt_builder=PromptBuilder(),
-        retriever=MockRetriever(
-            embedder=MockEmbedder(),
-            vector_store=MockVectorStore(),
+        search_service=SearchService(
+            MockRetriever(
+                embedder=MockEmbedder(),
+                vector_store=MockVectorStore(),
+            )
         ),
         memory=MockMemory(),
     )

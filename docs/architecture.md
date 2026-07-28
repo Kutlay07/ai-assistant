@@ -459,10 +459,11 @@ Assistant
 Workflow
    │
    ├────────► Memory
-   ├────────► Retriever
-   ├────────► PromptBuilder
+   ├────────► Search Service
    │               │
    │               ▼
+   │          Retriever
+   ├────────► PromptBuilder
    ├────────► Tools
    └────────► LLM
                  │
