@@ -68,19 +68,6 @@ def test_index_missing_file_raises_error():
         indexer.index("missing.txt")
 
 
-def test_index_missing_file_raises_error():
-
-    indexer = Indexer(
-        loader=TextLoader(),
-        splitter=TextSplitter(),
-        embedder=MockEmbedder(),
-        vector_store=MockVectorStore(),
-    )
-
-    with pytest.raises(FileNotFoundError):
-        indexer.index("missing.txt")
-
-
 def test_index_preserves_chunk_content(tmp_path):
 
     file = tmp_path / "sample.txt"
