@@ -63,6 +63,7 @@ Builder
 | Memory         | Store conversation history                    |
 | LLM            | Provider-independent language model interface |
 | Embedder       | Generate vector representations               |
+| Vector Store   | Store and search embeddings |
 | Tools          | Execute external capabilities                 |
 | Retriever      | Knowledge retrieval *(future)*                |
 | Planner        | Multi-step planning *(future)*                |
@@ -304,6 +305,33 @@ Future extensions may include:
 
 
 
+## Vector Store
+
+VectorStore provides a common abstraction for storing and searching embeddings independently from retrieval workflows.
+
+The assistant communicates with vector storage implementations through the `BaseVectorStore` abstraction.
+
+### Implementations
+
+Current implementations:
+
+- MockVectorStore
+
+Future implementations may include:
+
+- ChromaVectorStore
+- FAISSVectorStore
+- PGVectorStore
+- PineconeVectorStore
+
+### MockVectorStore
+
+MockVectorStore is a lightweight in-memory implementation intended for development and testing.
+
+It stores chunks and returns deterministic search results without relying on external vector databases.
+
+
+
 ## Tools
 
 Tools provide a common interface for executing external capabilities independently from workflow logic.
@@ -345,13 +373,16 @@ It provides deterministic responses without relying on external services.
         │            │            │
         ├────────────┼────────────┤
         ▼            ▼            ▼
- PromptBuilder  Retriever   BaseTool
+   PromptBuilder  Retriever   BaseTool
         │
         ▼
     BaseMemory
         │
         ▼
     BaseEmbedder
+        │
+        ▼
+    BaseVectorStore
         │
         ▼
       BaseLLM
