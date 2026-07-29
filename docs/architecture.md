@@ -140,11 +140,19 @@ The workflow remains focused on orchestration while delegating prompt constructi
 - `BaseLLM`
 
 
-## Agent Workflow
+### Agent Workflow
 
-AgentWorkflow provides the foundation for future agent-based execution.
+`AgentWorkflow` provides the foundation for future agent capabilities.
 
-It coordinates prompt generation, memory, language model interaction, and external tool execution through shared abstractions.
+It coordinates:
+
+- Conversation memory
+- Prompt generation
+- LLM interaction
+- Tool discovery through `ToolRegistry`
+
+The current implementation executes a registered tool after the LLM response, providing a simple execution loop that will be extended with reasoning and dynamic tool selection in future milestones.
+
 
 ### Responsibilities
 
