@@ -98,7 +98,7 @@ def test_agent_workflow_creates_tool_call():
     assert selection.arguments["query"] == "Hello"
 
 
-def test_agent_workflow_respects_iteration_limit():
+def test_agent_workflow_executes_plan_steps():
     memory = MockMemory()
 
     registry = ToolRegistry()
@@ -124,7 +124,8 @@ def test_agent_workflow_respects_iteration_limit():
         if message.startswith("Mock tool response:")
     ]
 
-    assert len(tool_messages) == 2
+    assert len(tool_messages) == 1
+
 
 def test_agent_workflow_requires_positive_iterations():
     registry = ToolRegistry()

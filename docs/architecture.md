@@ -158,6 +158,8 @@ The current implementation creates structured tool requests and validates them b
 
 The workflow now creates an execution plan before interacting with the language model. This separates planning from execution and provides a foundation for future task decomposition and advanced reasoning capabilities.
 
+The execution loop is now driven by planner-generated execution steps. Each plan step is processed sequentially, allowing the assistant to combine planning, reasoning, and tool execution while maintaining conversation state across the workflow.
+
 
 ### Responsibilities
 

@@ -54,7 +54,7 @@ class AgentWorkflow(BaseWorkflow):
         
         tool_output = ""
         
-        for _ in range(self._max_iterations):
+        for step in plan.steps:
             
             prompt = self._prompt_builder.build(
                 request=request,
@@ -78,6 +78,5 @@ class AgentWorkflow(BaseWorkflow):
             self._memory.add_message(tool_output)
             
             history = self._memory.get_history()
-            
         
         return Response(output=tool_output)
