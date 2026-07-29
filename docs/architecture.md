@@ -150,6 +150,7 @@ It coordinates:
 - Prompt generation
 - LLM interaction
 - Tool discovery through `ToolRegistry`
+- Dynamic tool resolution through `ToolSelection`
 
 The current implementation executes a registered tool after the LLM response, providing a simple execution loop that will be extended with reasoning and dynamic tool selection in future milestones.
 
@@ -437,6 +438,9 @@ It provides deterministic responses without relying on external services.
         │            │            │
         ▼            ▼            ▼
  ChatWorkflow   RAGWorkflow   AgentWorkflow
+        │            │              │
+        │            │              ▼
+        │            │        ToolSelection
         │            │              │
         │            │              ▼
         │            │        ToolRegistry

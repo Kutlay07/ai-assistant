@@ -1,4 +1,4 @@
-from ..models import Request, Response
+from ..models import Request, Response, ToolSelection
 from .base_workflow import BaseWorkflow
 from ..llms import BaseLLM
 from ..memory import BaseMemory
@@ -22,6 +22,13 @@ class AgentWorkflow(BaseWorkflow):
         self._memory = memory
         self._tool_registry = tool_registry
         
+        
+    def _select_tool(self, llm_output: str) -> ToolSelection:
+        # TODO: Replace with dynamic LLM-based selection.
+        return ToolSelection(
+            tool_name="mock",
+            query=llm_output,
+        )
 
         
     def run(self, request: Request) -> Response:
@@ -34,10 +41,11 @@ class AgentWorkflow(BaseWorkflow):
         
         llm_output = self._llm.generate(prompt)
         
-        # TODO: Select tool dynamically based on the LLM output.
-        tool = self._tool_registry.get("mock")
-        
-        tool_output = tool.execute(llm_output)
+        selection = self._select_tool(llm_output)
+
+        tool = self._tool_registry.get(selection.tool_name)
+
+        tool_output = tool.execute(selection.query)
         
         self._memory.add_message(request.input)
         self._memory.add_message(tool_output)
