@@ -19,9 +19,9 @@ def test_create_mock_llm(monkeypatch):
 def test_create_openai_provider(monkeypatch):
 
     monkeypatch.setenv("LLM_PROVIDER", "groq")
-    monkeypatch.setenv("GROQ_API_KEY", "dummy-key")
+    monkeypatch.setenv("LLM_API_KEY", "dummy-key")
     monkeypatch.setenv("LLM_MODEL", "dummy-model")
-    monkeypatch.setenv("BASE_URL", "https://example.com")
+    monkeypatch.setenv("LLM_BASE_URL", "https://example.com")
 
     llm = create_llm()
 
