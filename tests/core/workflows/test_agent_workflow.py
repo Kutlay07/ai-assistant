@@ -75,7 +75,7 @@ def test_agent_workflow_selects_tool():
         tool_registry=registry,
     )
 
-    selection = workflow.select_tool(
+    selection = workflow._select_tool(
         "Hello"
     )
 

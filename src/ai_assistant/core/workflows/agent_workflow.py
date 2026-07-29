@@ -23,7 +23,8 @@ class AgentWorkflow(BaseWorkflow):
         self._tool_registry = tool_registry
         
         
-    def select_tool(self, llm_output: str) -> ToolSelection:
+    def _select_tool(self, llm_output: str) -> ToolSelection:
+        # TODO: Replace with dynamic LLM-based selection.
         return ToolSelection(
             tool_name="mock",
             query=llm_output,
@@ -40,7 +41,7 @@ class AgentWorkflow(BaseWorkflow):
         
         llm_output = self._llm.generate(prompt)
         
-        selection = self.select_tool(llm_output)
+        selection = self._select_tool(llm_output)
 
         tool = self._tool_registry.get(selection.tool_name)
 
