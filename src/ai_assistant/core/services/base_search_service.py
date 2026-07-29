@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from collections.abc import Sequence
 
 from ..models import Chunk, RetrievalOptions
 
@@ -10,6 +11,6 @@ class BaseSearchService(ABC):
         self,
         query: str,
         options: RetrievalOptions | None = None,
-    ) -> list[Chunk]:
+    ) -> Sequence[Chunk]:
         
         pass
