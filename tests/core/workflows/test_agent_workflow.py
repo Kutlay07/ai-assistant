@@ -60,3 +60,24 @@ def test_agent_workflow_stores_messages():
         message.startswith("Mock tool response:")
         for message in history
     )
+
+
+def test_agent_workflow_selects_tool():
+    memory = MockMemory()
+
+    registry = ToolRegistry()
+    registry.register(MockTool())
+
+    workflow = AgentWorkflow(
+        llm=MockLLM(),
+        prompt_builder=PromptBuilder(),
+        memory=memory,
+        tool_registry=registry,
+    )
+
+    selection = workflow.select_tool(
+        "Hello"
+    )
+
+    assert selection.tool_name == "mock"
+    assert selection.query == "Hello"
