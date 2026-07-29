@@ -7,6 +7,6 @@ class MockTool(BaseTool):
     def name(self) -> str:
         return "mock"
 
-
-    def execute(self, query: str) -> str:
-        return f"Mock tool response: {query}"
+    
+    def execute(self, arguments: dict[str, str]) -> str:
+        return f"Mock tool response: {arguments['query']}"

@@ -41,7 +41,9 @@ def test_execute_registered_tool():
 
     tool = registry.get("mock")
 
-    result = tool.execute("hello")
+    result = tool.execute(
+        {"query": "hello"}
+        )
 
     assert result == "Mock tool response: hello"
 
