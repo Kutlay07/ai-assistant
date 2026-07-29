@@ -1,4 +1,5 @@
 from ai_assistant.core.tools import MockTool, ToolRegistry
+import pytest
 
 
 def test_register_adds_tool():
@@ -43,3 +44,22 @@ def test_execute_registered_tool():
     result = tool.execute("hello")
 
     assert result == "Mock tool response: hello"
+
+
+def test_get_unknown_tool_raises_error():
+
+    registry = ToolRegistry()
+
+    with pytest.raises(ValueError):
+        registry.get("unknown")
+
+
+def test_register_duplicate_tool_raises_error():
+
+    registry = ToolRegistry()
+    tool = MockTool()
+
+    registry.register(tool)
+
+    with pytest.raises(ValueError):
+        registry.register(tool)
