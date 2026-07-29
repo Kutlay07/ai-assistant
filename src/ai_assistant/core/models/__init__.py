@@ -5,6 +5,7 @@ from .chunk import Chunk
 from .retrieval_options import RetrievalOptions
 from .tool_selection import ToolSelection
 from .tool_call import ToolCall
+from .plan import Plan
 
 __all__ = [
     "Request",
@@ -14,4 +15,5 @@ __all__ = [
     "RetrievalOptions",
     "ToolSelection",
     "ToolCall",
+    "Plan",
 ]

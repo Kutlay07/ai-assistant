@@ -147,6 +147,7 @@ The workflow remains focused on orchestration while delegating prompt constructi
 It coordinates:
 
 - Conversation memory
+- Task planning through `BasePlanner`
 - Prompt generation
 - LLM interaction
 - Structured tool invocation through `ToolCall`
@@ -155,7 +156,7 @@ It coordinates:
 
 The current implementation creates structured tool requests and validates them before execution. This provides a foundation for future LLM-driven function calling and more advanced agent reasoning capabilities.
 
-The workflow now supports iterative execution through a configurable execution loop. Tool outputs are stored in memory after each iteration, allowing future execution steps to build on intermediate results. The maximum number of iterations is configurable to prevent unbounded execution.
+The workflow now creates an execution plan before interacting with the language model. This separates planning from execution and provides a foundation for future task decomposition and advanced reasoning capabilities.
 
 
 ### Responsibilities
@@ -441,6 +442,12 @@ It provides deterministic responses without relying on external services.
         │            │              │
         ▼            ▼              ▼
  ChatWorkflow   RAGWorkflow   AgentWorkflow
+        │            │              │
+        │            │              ▼
+        │            │         BasePlanner
+        │            │              │
+        │            │              ▼
+        │            │            Plan
         │            │              │
         │            │              ▼
         │            │          ToolCall
