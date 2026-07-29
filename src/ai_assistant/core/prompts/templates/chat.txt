@@ -3,6 +3,9 @@ You are a helpful AI assistant.
 Conversation History:
 {history}
 
+Current Step:
+{current_step}
+
 User:
 {input}
 

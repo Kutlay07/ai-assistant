@@ -8,6 +8,7 @@ def test_prompt_builder_returns_string():
     prompt = builder.build(
         request=Request(input="Hello"),
         history=[],
+        current_step="Process request: Hello",
     )
 
     assert isinstance(prompt, str)
@@ -19,6 +20,7 @@ def test_prompt_builder_includes_user_input():
     prompt = builder.build(
         request=Request(input="Hello"),
         history=[],
+        current_step="Process request: Hello",
     )
 
     assert "Hello" in prompt
@@ -33,7 +35,21 @@ def test_prompt_builder_includes_history():
             "Hi",
             "How are you?",
         ],
+        current_step="Process request: Hello",
     )
 
     assert "Hi" in prompt
     assert "How are you?" in prompt
+
+
+def test_prompt_contains_current_step():
+    builder = PromptBuilder()
+
+    prompt = builder.build(
+        request=Request(input="Hello"),
+        history=[],
+        current_step="Process request: Hello",
+    )
+
+    assert "Current Step:" in prompt
+    assert "Process request: Hello" in prompt

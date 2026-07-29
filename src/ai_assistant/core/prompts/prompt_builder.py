@@ -19,6 +19,7 @@ class PromptBuilder:
         self,
         request: Request,
         history: Sequence[str],
+        current_step: str | None = None,
         template: str = "chat",
         context: list[Chunk] | None = None
     ) -> str:
@@ -36,5 +37,6 @@ class PromptBuilder:
         return template_text.format(
             history=history_text,
             input=request.input,
+            current_step=current_step or "",
             context=context_text,
         )
