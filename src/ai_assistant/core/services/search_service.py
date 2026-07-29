@@ -1,8 +1,8 @@
 from ..retrievers import BaseRetriever
-from ..models import Chunk
 from ..models import RetrievalOptions
+from .base_search_service import BaseSearchService
 
-class SearchService:
+class SearchService(BaseSearchService):
     """Application service for semantic search"""
     def __init__(self, retriever: BaseRetriever):
         self._retriever = retriever

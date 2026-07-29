@@ -1,13 +1,13 @@
-from ..models import Chunk, RetrievalOptions
+from abc import ABC, abstractmethod
 from collections.abc import Sequence
 
-from abc import ABC, abstractmethod
+from ..models import Chunk, RetrievalOptions
 
 
-class BaseRetriever(ABC):
+class BaseSearchService(ABC):
     
     @abstractmethod
-    def retrieve(
+    def search(
         self,
         query: str,
         options: RetrievalOptions | None = None,

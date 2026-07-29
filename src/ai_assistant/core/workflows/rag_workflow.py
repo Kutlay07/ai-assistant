@@ -3,7 +3,7 @@ from .base_workflow import BaseWorkflow
 from ..llms import BaseLLM
 from ..prompts import PromptBuilder
 from ..memory import BaseMemory
-from ..services import SearchService
+from ..services import BaseSearchService
 
 
 class RAGWorkflow(BaseWorkflow):
@@ -13,7 +13,7 @@ class RAGWorkflow(BaseWorkflow):
         self,
         llm: BaseLLM,
         prompt_builder: PromptBuilder,
-        search_service: SearchService,
+        search_service: BaseSearchService,
         memory: BaseMemory):
         
         super().__init__()
