@@ -155,6 +155,8 @@ It coordinates:
 
 The current implementation creates structured tool requests and validates them before execution. This provides a foundation for future LLM-driven function calling and more advanced agent reasoning capabilities.
 
+The workflow now supports iterative execution through a configurable execution loop. Tool outputs are stored in memory after each iteration, allowing future execution steps to build on intermediate results. The maximum number of iterations is configurable to prevent unbounded execution.
+
 
 ### Responsibilities
 
