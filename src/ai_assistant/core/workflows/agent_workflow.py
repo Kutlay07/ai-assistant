@@ -3,7 +3,7 @@ from .base_workflow import BaseWorkflow
 from ..llms import BaseLLM
 from ..memory import BaseMemory
 from ..prompts import PromptBuilder
-from ..tools import BaseTool
+from ..tools import ToolRegistry
 
 
 class AgentWorkflow(BaseWorkflow):
@@ -13,12 +13,16 @@ class AgentWorkflow(BaseWorkflow):
                 llm: BaseLLM, 
                 prompt_builder: PromptBuilder, 
                 memory: BaseMemory, 
-                tool: BaseTool, 
+                tool_registry: ToolRegistry, 
                 ):
+        super().__init__()
+        
         self._llm = llm
         self._prompt_builder = prompt_builder
         self._memory = memory
-        self._tool = tool
+        self._tool_registry = tool_registry
+        
+
         
     def run(self, request: Request) -> Response:
         history = self._memory.get_history()
@@ -30,7 +34,10 @@ class AgentWorkflow(BaseWorkflow):
         
         llm_output = self._llm.generate(prompt)
         
-        tool_output = self._tool.execute(llm_output)
+        # TODO: Select tool dynamically based on the LLM output.
+        tool = self._tool_registry.get("mock")
+        
+        tool_output = tool.execute(llm_output)
         
         self._memory.add_message(request.input)
         self._memory.add_message(tool_output)
