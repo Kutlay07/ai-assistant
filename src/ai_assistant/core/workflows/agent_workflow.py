@@ -4,6 +4,7 @@ from ..llms import BaseLLM
 from ..memory import BaseMemory
 from ..prompts import PromptBuilder
 from ..tools import ToolRegistry, ToolCallValidator
+from ..planners import BasePlanner
 
 
 class AgentWorkflow(BaseWorkflow):
@@ -13,7 +14,8 @@ class AgentWorkflow(BaseWorkflow):
         self,
         llm: BaseLLM, 
         prompt_builder: PromptBuilder, 
-        memory: BaseMemory, 
+        memory: BaseMemory,
+        planner: BasePlanner,
         tool_registry: ToolRegistry,
         tool_call_validator: ToolCallValidator,
         max_iterations: int = 3,
@@ -23,6 +25,7 @@ class AgentWorkflow(BaseWorkflow):
         self._llm = llm
         self._prompt_builder = prompt_builder
         self._memory = memory
+        self._planner = planner
         self._tool_registry = tool_registry
         self._tool_call_validator = tool_call_validator
         self._max_iterations = max_iterations
@@ -43,9 +46,11 @@ class AgentWorkflow(BaseWorkflow):
 
         
     def run(self, request: Request) -> Response:
-        
         self._memory.add_message(request.input)
+        
         history = self._memory.get_history()
+        
+        plan = self._planner.create_plan(request)
         
         tool_output = ""
         

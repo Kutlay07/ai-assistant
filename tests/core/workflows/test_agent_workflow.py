@@ -9,6 +9,7 @@ from ai_assistant.core.tools import (
     MockTool,
     ToolRegistry,
     ToolCallValidator)
+from ai_assistant.core.planners import MockPlanner
 
 
 
@@ -22,6 +23,7 @@ def test_agent_workflow_returns_response():
         memory=MockMemory(),
         tool_registry=registry,
         tool_call_validator=ToolCallValidator(),
+        planner=MockPlanner(),
     )
 
     response = workflow.run(Request(input="Hello"))
@@ -39,6 +41,7 @@ def test_agent_workflow_uses_tool():
         memory=MockMemory(),
         tool_registry=registry,
         tool_call_validator=ToolCallValidator(),
+        planner=MockPlanner(),
     )
 
     response = workflow.run(Request(input="Hello"))
@@ -58,6 +61,7 @@ def test_agent_workflow_stores_messages():
         memory=memory,
         tool_registry=registry,
         tool_call_validator=ToolCallValidator(),
+        planner=MockPlanner(),
     )
 
     workflow.run(Request(input="Hello"))
@@ -83,6 +87,7 @@ def test_agent_workflow_creates_tool_call():
         memory=memory,
         tool_registry=registry,
         tool_call_validator=ToolCallValidator(),
+        planner=MockPlanner(),
     )
 
     selection = workflow._create_tool_call(
@@ -106,6 +111,7 @@ def test_agent_workflow_respects_iteration_limit():
         tool_registry=registry,
         tool_call_validator=ToolCallValidator(),
         max_iterations=2,
+        planner=MockPlanner(),
     )
 
     workflow.run(Request(input="Hello"))
@@ -132,4 +138,5 @@ def test_agent_workflow_requires_positive_iterations():
             tool_registry=registry,
             tool_call_validator=ToolCallValidator(),
             max_iterations=0,
+            planner=MockPlanner(),
         )
