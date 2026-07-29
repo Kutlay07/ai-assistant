@@ -34,6 +34,7 @@ class AgentWorkflow(BaseWorkflow):
         
         llm_output = self._llm.generate(prompt)
         
+        # TODO: Select tool dynamically based on the LLM output.
         tool = self._tool_registry.get("mock")
         
         tool_output = tool.execute(llm_output)
