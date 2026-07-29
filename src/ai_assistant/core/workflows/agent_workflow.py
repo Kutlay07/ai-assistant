@@ -59,6 +59,7 @@ class AgentWorkflow(BaseWorkflow):
             prompt = self._prompt_builder.build(
                 request=request,
                 history=history,
+                current_step=step,
             )
             
             llm_output = self._llm.generate(prompt)

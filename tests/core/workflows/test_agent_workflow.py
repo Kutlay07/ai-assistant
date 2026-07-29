@@ -123,8 +123,11 @@ def test_agent_workflow_executes_plan_steps():
         for message in history
         if message.startswith("Mock tool response:")
     ]
+    plan = MockPlanner().create_plan(
+        Request(input="Hello")
+    )
 
-    assert len(tool_messages) == 1
+    assert len(tool_messages) == len(plan.steps)
 
 
 def test_agent_workflow_requires_positive_iterations():

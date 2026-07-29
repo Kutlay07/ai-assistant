@@ -154,11 +154,11 @@ It coordinates:
 - Tool validation through `ToolCallValidator`
 - Tool discovery through `ToolRegistry`
 
-The current implementation creates structured tool requests and validates them before execution. This provides a foundation for future LLM-driven function calling and more advanced agent reasoning capabilities.
+The current implementation generates an execution plan through the planner and processes each plan step sequentially. Each step is executed through the LLM, validated tool calls, and the registered tool system while preserving conversation state in memory. This provides the foundation for future autonomous reasoning and multi-step agent workflows.
 
-The workflow now creates an execution plan before interacting with the language model. This separates planning from execution and provides a foundation for future task decomposition and advanced reasoning capabilities.
+The workflow creates an execution plan before interacting with the language model. This separates planning from execution and provides a foundation for future task decomposition and advanced reasoning capabilities.
 
-The execution loop is now driven by planner-generated execution steps. Each plan step is processed sequentially, allowing the assistant to combine planning, reasoning, and tool execution while maintaining conversation state across the workflow.
+The execution loop is driven by planner-generated execution steps. Each plan step is processed sequentially, allowing the assistant to combine planning, reasoning, and tool execution while maintaining conversation state across the workflow.
 
 
 ### Responsibilities
