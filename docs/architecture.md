@@ -437,23 +437,23 @@ It provides deterministic responses without relying on external services.
         │            │            │
         ▼            ▼            ▼
  ChatWorkflow   RAGWorkflow   AgentWorkflow
-                         │        │
-                         │        ▼
-                         │    ToolRegistry
-                         │        │
-                         │        ▼
-                         │     BaseTool
-                         │ 
-        ┌────────────────┼────────────────┐
-        │                │                │
-        ▼                ▼                ▼
- BaseRetriever    PromptBuilder      BaseMemory
-        │                                 │
-   ┌────┴────┐                            │
-   ▼         ▼                            │
-BaseEmbedder BaseVectorStore              │
-                                          ▼
-                                      BaseLLM
+        │            │              │
+        │            │              ▼
+        │            │        ToolRegistry
+        │            │              │
+        │            │              ▼
+        │            │          BaseTool
+        │            │
+        └────────────┼──────────────────────┐
+                     ▼                      ▼
+                 PromptBuilder         BaseMemory
+                     │
+                     ▼
+                  BaseLLM
+                     │
+        ┌────────────┼────────────┐
+        ▼            ▼            ▼
+    MockLLM   OpenAIProvider  LocalProvider
 ```
 
 
@@ -479,7 +479,13 @@ Workflow
    │          Retriever
    ├────────► PromptBuilder
    ├────────► Tools
-   └────────► LLM
+   └────────► LLM Factory
+                 │
+                 ▼
+            Provider
+                 │
+                 ▼
+            Real Model
                  │
                  ▼
              Response

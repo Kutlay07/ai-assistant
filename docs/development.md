@@ -6,7 +6,21 @@ This document describes the development workflow followed throughout the AI Assi
 
 The goal is to keep development incremental, well-documented, and architecture-driven while maintaining production-quality engineering practices.
 
----
+
+
+## LLM Providers
+
+The assistant uses interchangeable LLM providers through the `BaseLLM` abstraction.
+
+Currently available providers:
+
+- MockLLM
+- OpenAIProvider (OpenAI-compatible APIs)
+- LocalProvider (placeholder)
+
+The active provider is selected through environment configuration.
+
+
 
 ## Development Process
 
@@ -30,7 +44,7 @@ Close Issue
 
 This process encourages thoughtful design before implementation and keeps the repository organized as it grows.
 
----
+
 
 ## Git Workflow
 
@@ -42,7 +56,7 @@ Development follows a simple and consistent Git workflow.
 - Push changes frequently.
 - Close issues only after implementation, testing, and documentation are complete.
 
----
+
 
 ## Commit Convention
 
@@ -66,7 +80,7 @@ refactor(memory): simplify conversation storage
 test(tools): add calculator tests
 ```
 
----
+
 
 ## Documentation
 
@@ -79,7 +93,7 @@ Guidelines:
 - Update architecture documents whenever the system evolves.
 - Prefer explaining why a decision was made, not only what was implemented.
 
----
+
 
 ## Testing
 
@@ -91,7 +105,7 @@ General principles:
 - Test public behavior rather than implementation details.
 - Add tests whenever practical for new functionality.
 
----
+
 
 ## Releases
 
@@ -99,7 +113,7 @@ Releases are milestone-based rather than commit-based.
 
 Each release should represent a meaningful stage in the project's evolution instead of a collection of unrelated commits.
 
----
+
 
 ## Project Philosophy
 
