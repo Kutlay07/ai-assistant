@@ -15,3 +15,13 @@ def test_mock_tool_returns_string():
     result = tool.execute("Hello")
 
     assert isinstance(result, str)
+
+
+from ai_assistant.core.tools import MockTool
+
+
+def test_name_returns_mock():
+
+    tool = MockTool()
+
+    assert tool.name == "mock"

@@ -429,7 +429,13 @@ It provides deterministic responses without relying on external services.
         │            │            │
         ▼            ▼            ▼
  ChatWorkflow   RAGWorkflow   AgentWorkflow
-                         │
+                         │        │
+                         │        ▼
+                         │    ToolRegistry
+                         │        │
+                         │        ▼
+                         │     BaseTool
+                         │ 
         ┌────────────────┼────────────────┐
         │                │                │
         ▼                ▼                ▼
