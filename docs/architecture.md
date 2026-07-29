@@ -149,10 +149,11 @@ It coordinates:
 - Conversation memory
 - Prompt generation
 - LLM interaction
+- Structured tool invocation through `ToolCall`
+- Tool validation through `ToolCallValidator`
 - Tool discovery through `ToolRegistry`
-- Dynamic tool resolution through `ToolSelection`
 
-The current implementation executes a registered tool after the LLM response, providing a simple execution loop that will be extended with reasoning and dynamic tool selection in future milestones.
+The current implementation creates structured tool requests and validates them before execution. This provides a foundation for future LLM-driven function calling and more advanced agent reasoning capabilities.
 
 
 ### Responsibilities
@@ -430,23 +431,26 @@ It provides deterministic responses without relying on external services.
 ## Dependency Graph
 
 ```text
-                    Assistant
-                         │
-                         ▼
-                   BaseWorkflow
-        ┌────────────┼────────────┐
-        │            │            │
-        ▼            ▼            ▼
+                 Assistant
+                     │
+                     ▼
+                BaseWorkflow
+        ┌────────────┼──────────────┐
+        │            │              │
+        ▼            ▼              ▼
  ChatWorkflow   RAGWorkflow   AgentWorkflow
         │            │              │
         │            │              ▼
-        │            │        ToolSelection
+        │            │          ToolCall
         │            │              │
         │            │              ▼
-        │            │        ToolRegistry
+        │            │        ToolCallValidator
         │            │              │
         │            │              ▼
-        │            │          BaseTool
+        │            │         ToolRegistry
+        │            │              │
+        │            │              ▼
+        │            │           BaseTool
         │            │
         └────────────┼──────────────────────┐
                      ▼                      ▼
