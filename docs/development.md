@@ -107,6 +107,22 @@ General principles:
 
 
 
+## Running the API
+
+The project includes a FastAPI application for local development and future production deployment.
+
+Start the development server with:
+
+```bash
+python -m fastapi dev src/ai_assistant/api/main.py
+```
+
+The interactive API documentation is available at:
+http://127.0.0.1:8000/docs
+
+The ReDoc documentation is available at:
+http://127.0.0.1:8000/redoc
+
 ## Releases
 
 Releases are milestone-based rather than commit-based.
