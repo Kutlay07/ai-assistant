@@ -14,3 +14,16 @@ def test_chat_returns_response():
         )
     assert response.status_code == 200
     assert "Hello" in response.json()["response"]
+
+
+def test_chat_stream():
+    with client.stream(
+        "POST",
+        "/chat/stream",
+        json={"message": "Hello"},
+    ) as response:
+        assert response.status_code == 200
+
+        output = "".join(response.iter_text())
+
+        assert "Mock response" in output

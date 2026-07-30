@@ -5,6 +5,8 @@ class DummyLLM(BaseLLM):
     def generate(self, prompt: str) -> str:
         return "dummy"
     
+    def stream(self, prompt):
+        yield self.generate(prompt)
 
 def test_base_llm_generate():
     llm = DummyLLM()

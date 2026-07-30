@@ -10,3 +10,6 @@ class Assistant:
         
     def handle(self, request: Request) -> Response:
         return self._workflow.run(request)
+    
+    def stream(self, request: Request):
+        return self._workflow.stream(request)
