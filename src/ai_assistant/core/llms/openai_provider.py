@@ -41,3 +41,6 @@ class OpenAIProvider(BaseLLM):
         )
         
         return response.choices[0].message.content
+    
+    def stream(self, prompt):
+        yield self.generate(prompt)
