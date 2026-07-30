@@ -1,4 +1,11 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
+
+from ai_assistant.core.models import Request
+from ai_assistant.core.assistant import Assistant
+
+from .schemas import ChatRequest, ChatResponse
+from .dependencies import get_assistant
+
 
 app = FastAPI(
     title="AI Assistant",
@@ -26,3 +33,24 @@ def health():
     return {
         "status": "ok",
     }
+
+
+@app.post(
+    "/chat",
+    tags=["Chat"],
+    response_model=ChatResponse,
+)
+def chat(
+    request: ChatRequest,
+    assistant: Assistant = Depends(get_assistant),
+    ):
+    
+    core_request = Request(
+        input=request.message,
+    )
+    
+    response = assistant.handle(core_request)
+    
+    return ChatResponse(
+        response=response.output,
+    )

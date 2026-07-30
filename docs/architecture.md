@@ -69,6 +69,7 @@ Builder
 | Retriever      | Retrieve relevant document chunks |
 | Tools          | Execute external capabilities |
 | Planner        | Multi-step planning |
+| API Layer      | Handle HTTP requests |
 
 ## Assistant
 
@@ -480,25 +481,31 @@ It provides deterministic responses without relying on external services.
 ## Request Lifecycle
 
 ```text
- User
-   │
-   ▼
-Request
-   │
-   ▼
+User
+  │
+  ▼
+HTTP Request
+  │
+  ▼
+FastAPI
+  │
+  ▼
+Pydantic Validation
+  │
+  ▼
 Assistant
-   │
-   ▼
+  │
+  ▼
 Workflow
-   │
-   ├────────► Memory
-   ├────────► Search Service
-   │               │
-   │               ▼
-   │          Retriever
-   ├────────► PromptBuilder
-   ├────────► Tools
-   └────────► LLM Factory
+  │
+  ├────────► Memory
+  ├────────► Search Service
+  │               │
+  │               ▼
+  │          Retriever
+  ├────────► PromptBuilder
+  ├────────► Tools
+  └────────► LLM Factory
                  │
                  ▼
             Provider
@@ -507,7 +514,7 @@ Workflow
             Real Model
                  │
                  ▼
-             Response
+           HTTP Response
                  │
                  ▼
                User
