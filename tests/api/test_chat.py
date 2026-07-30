@@ -5,7 +5,7 @@ from ai_assistant.api import app
 client = TestClient(app)
 
 
-def test_health_returns_response():
+def test_chat_returns_response():
     response = client.post(
         "/chat",
         json={
