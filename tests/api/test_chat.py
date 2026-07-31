@@ -23,7 +23,31 @@ def test_chat_stream():
         json={"message": "Hello"},
     ) as response:
         assert response.status_code == 200
+        
+        assert response.headers["content-type"].startswith("text/plain")
 
         output = "".join(response.iter_text())
 
         assert "Mock response" in output
+
+
+def test_chat_rejects_empty_message():
+    response = client.post(
+        "/chat",
+        json={
+            "message": "",
+        },
+    )
+
+    assert response.status_code == 422
+
+
+def test_stream_rejects_empty_message():
+    response = client.post(
+        "/chat/stream",
+        json={
+            "message": "",
+        },
+    )
+
+    assert response.status_code == 422
