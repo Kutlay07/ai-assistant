@@ -248,7 +248,7 @@ It provides deterministic responses without relying on external language model p
 
 ### LocalProvider
 
-`LocalProvider` is reserved for future support of locally hosted language models.a
+`LocalProvider` is reserved for future support of locally hosted language models.
 
 
 
