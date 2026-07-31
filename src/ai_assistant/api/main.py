@@ -5,7 +5,11 @@ from fastapi import Request as FastAPIRequest
 from ai_assistant.core.models import Request
 from ai_assistant.core.assistant import Assistant
 
-from .schemas import ChatRequest, ChatResponse
+from .schemas import (
+    ChatRequest, 
+    ChatResponse, 
+    HealthResponse
+    )
 from .dependencies import get_assistant
 
 
@@ -30,6 +34,7 @@ app = FastAPI(
     "/health",
     tags=["System"],
     summary="Health check",
+    response_model=HealthResponse
 )
 def health():
     return {
