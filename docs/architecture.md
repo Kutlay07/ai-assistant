@@ -222,8 +222,6 @@ Keeping Request and Response as shared models provides a consistent interface ac
 
 ## LLM
 
-The assistant communicates with language models through a shared abstraction.
-
 ### BaseLLM
 
 `BaseLLM` defines the common contract implemented by all language model providers.
@@ -234,18 +232,23 @@ The core system depends only on this abstraction, allowing providers to be repla
 
 Current implementations:
 
+- GroqProvider
 - MockLLM
+- LocalProvider
 
-Future implementations may include:
+### GroqProvider
 
-- LocalLLM
-- RemoteLLM
+`GroqProvider` connects the assistant to Groq's OpenAI-compatible API, providing production-ready text generation and streaming capabilities.
 
 ### MockLLM
 
-MockLLM is a lightweight implementation of the BaseLLM interface intended for development and testing.
+`MockLLM` is a lightweight implementation of the `BaseLLM` interface intended for development and testing.
 
 It provides deterministic responses without relying on external language model providers.
+
+### LocalProvider
+
+`LocalProvider` is reserved for future support of locally hosted language models.a
 
 
 

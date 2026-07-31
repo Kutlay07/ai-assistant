@@ -16,7 +16,7 @@ def test_create_mock_llm(monkeypatch):
     assert isinstance(llm, MockLLM)
 
 
-def test_create_openai_provider(monkeypatch):
+def test_create_groq_provider(monkeypatch):
 
     monkeypatch.setenv("LLM_PROVIDER", "groq")
     monkeypatch.setenv("LLM_API_KEY", "dummy-key")

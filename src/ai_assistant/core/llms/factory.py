@@ -2,7 +2,7 @@ from ..config import settings
 
 from .base_llm import BaseLLM
 from .mock_llm import MockLLM
-from .openai_provider import OpenAIProvider
+from .groq_provider import GroqProvider
 from .local_provider import LocalProvider
 
 
@@ -11,7 +11,7 @@ def create_llm() -> BaseLLM:
     provider = settings.get_llm_provider()
 
     if provider == "groq":
-        return OpenAIProvider()
+        return GroqProvider()
 
     if provider == "local":
         return LocalProvider()

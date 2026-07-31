@@ -1,10 +1,12 @@
+# Groq provides an OpenAI-compatible API
 from openai import OpenAI
+from collections.abc import Iterator
 
 from .base_llm import BaseLLM
 from ..config import settings
 
 
-class OpenAIProvider(BaseLLM):
+class GroqProvider(BaseLLM):
     
     def __init__(self):
         api_key = settings.get_llm_api_key()
@@ -42,5 +44,21 @@ class OpenAIProvider(BaseLLM):
         
         return response.choices[0].message.content
     
-    def stream(self, prompt):
-        yield self.generate(prompt)
+    
+    def stream(self, prompt: str) -> Iterator[str]:
+        stream = self._client.chat.completions.create(
+            model=self._model,
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt,
+                }
+            ],
+            stream=True,
+        )
+        
+        for chunk in stream:
+            content = chunk.choices[0].delta.content
+            
+            if content:
+                yield content
