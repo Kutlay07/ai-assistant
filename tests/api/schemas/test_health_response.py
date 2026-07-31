@@ -1,6 +1,7 @@
 from ai_assistant.api.schemas import HealthResponse
 
 
-health = HealthResponse(status="ok")
+def test_health_response_accepts_valid_status():
+    health = HealthResponse(status="ok")
 
-assert health.status == "ok"
+    assert health.status == "ok"
