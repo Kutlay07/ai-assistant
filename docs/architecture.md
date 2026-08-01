@@ -187,6 +187,28 @@ RAGWorkflow augments user requests with retrieved context before generating a re
 
 It coordinates retrieval, prompt construction, language model generation, and conversation memory through shared abstractions.
 
+```text
+User
+   │
+   ▼
+RAGWorkflow
+   │
+   ▼
+SearchService
+   │
+   ▼
+Retriever
+   │
+   ▼
+Vector Store
+   │
+   ▼
+PromptBuilder
+   │
+   ▼
+LLM
+```
+
 ### Responsibilities
 
 - Receive a request.

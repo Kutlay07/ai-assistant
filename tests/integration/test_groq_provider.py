@@ -6,7 +6,7 @@ These tests require valid API credentials and internet access.
 import pytest
 
 from ai_assistant.core.config import settings
-from ai_assistant.core.llms import OpenAIProvider
+from ai_assistant.core.llms import GroqProvider
 
 pytestmark = pytest.mark.skipif(
     not settings.get_llm_api_key(),
@@ -15,7 +15,7 @@ pytestmark = pytest.mark.skipif(
 
 def test_generate_returns_string():
 
-    llm = OpenAIProvider()
+    llm = GroqProvider()
 
     response = llm.generate("Say hello in one word.")
 

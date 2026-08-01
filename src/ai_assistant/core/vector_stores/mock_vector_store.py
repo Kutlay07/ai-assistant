@@ -5,8 +5,11 @@ from .base_vector_store import BaseVectorStore
 
 class MockVectorStore(BaseVectorStore):
     
-    def __init__(self):
-        self._chunks: list[Chunk] = []
+    def __init__(
+        self, 
+        chunks: list[Chunk] | None = None
+        ):
+        self._chunks = chunks or []
         
     
     def add(self, chunks: list[Chunk]) -> None:
