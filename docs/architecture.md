@@ -71,6 +71,8 @@ Builder
 | Planner        | Multi-step planning |
 | API Layer      | Handle HTTP requests |
 
+
+
 ## Assistant
 
 The Assistant is the application's orchestration layer and the main entry point of the system.
@@ -84,6 +86,7 @@ The Assistant intentionally contains no business logic.
 - Receive incoming requests.
 - Delegate execution to the configured workflow.
 - Return the generated response.
+- Validates and executes registered tools through the `ToolRegistry`.
 
 ### Non-Responsibilities
 
