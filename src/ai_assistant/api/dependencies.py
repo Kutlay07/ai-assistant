@@ -9,6 +9,7 @@ from ai_assistant.core.retrievers import MockRetriever
 from ai_assistant.core.services import SearchService
 from ai_assistant.core.vector_stores import MockVectorStore
 from ai_assistant.core.workflows import ChatWorkflow, RAGWorkflow
+from ai_assistant.core.tools import ToolRegistry, MockTool
 
 
 def create_search_service() -> SearchService:
@@ -38,7 +39,14 @@ def create_search_service() -> SearchService:
     return SearchService(
         retriever=retriever,
     )
+
+
+def create_tool_registry() -> ToolRegistry:
+    registry = ToolRegistry()
     
+    registry.register(MockTool())
+    
+    return registry
 
 
 def get_assistant() -> Assistant:
@@ -48,7 +56,10 @@ def get_assistant() -> Assistant:
         memory=MockMemory(),
     )
 
-    return Assistant(workflow)
+    return Assistant(
+        workflow,
+        tool_registry=create_tool_registry(),
+        )
 
 
 def get_rag_assistant() -> Assistant:
@@ -59,4 +70,7 @@ def get_rag_assistant() -> Assistant:
         memory=MockMemory(),
     )
 
-    return Assistant(workflow)
+    return Assistant(
+        workflow,
+        tool_registry=create_tool_registry(),
+        )
