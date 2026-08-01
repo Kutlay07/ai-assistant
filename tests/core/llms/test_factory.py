@@ -2,7 +2,7 @@ import pytest
 
 from ai_assistant.core.llms import (
     MockLLM,
-    OpenAIProvider,
+    GroqProvider,
     create_llm,
 )
 
@@ -25,7 +25,7 @@ def test_create_groq_provider(monkeypatch):
 
     llm = create_llm()
 
-    assert isinstance(llm, OpenAIProvider)
+    assert isinstance(llm, GroqProvider)
 
 
 def test_unknown_provider_raises_error(monkeypatch):

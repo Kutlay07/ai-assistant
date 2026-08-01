@@ -1,3 +1,5 @@
+from collections.abc import Iterator
+
 from ..models import Request, Response
 from .base_workflow import BaseWorkflow
 from ..llms import BaseLLM
@@ -23,21 +25,49 @@ class RAGWorkflow(BaseWorkflow):
         self._search_service = search_service
         self._memory = memory
         
-    def run(self, request: Request) -> Response:
+    def _build_prompt(self, request: Request) -> str:
         history = self._memory.get_history()
         
         context = self._search_service.search(request.input)
         
-        prompt = self._prompt_builder.build(
+        return self._prompt_builder.build(
             request=request,
             history=history,
             context=context,
             template="rag",
         )
+    
+    def _save_conversation(
+        self,
+        request: Request,
+        response: str,
+        ) -> None:
+        
+        self._memory.add_message(request.input)
+        self._memory.add_message(response)
+        
+    def run(self, request: Request) -> Response:
+        prompt = self._build_prompt(request)
         
         output = self._llm.generate(prompt)
         
-        self._memory.add_message(request.input)
-        self._memory.add_message(output)
+        self._save_conversation(request, output)
         
         return Response(output=output)
+    
+    def stream(
+        self,
+        request: Request,
+        ) -> Iterator[str]:
+
+        prompt = self._build_prompt(request)
+
+        chunks = []
+
+        for chunk in self._llm.stream(prompt):
+            chunks.append(chunk)
+            yield chunk
+
+        response = "".join(chunks)
+
+        self._save_conversation(request, response)

@@ -10,7 +10,10 @@ from .schemas import (
     ChatResponse, 
     HealthResponse
     )
-from .dependencies import get_assistant
+from .dependencies import (
+    get_assistant,
+    get_rag_assistant,
+)
 
 
 app = FastAPI(
@@ -64,15 +67,62 @@ def chat(
 
 
 @app.post(
+    "/rag",
+    tags=["RAG"],
+    response_model=ChatResponse,
+)
+def rag(
+    request: ChatRequest,
+    assistant: Assistant = Depends(get_rag_assistant),
+    ):
+    core_request = Request(
+        input=request.message,
+    )
+    
+    response = assistant.handle(core_request)
+    
+    return ChatResponse(
+        response=response.output,
+    )
+
+
+@app.post(
     "/chat/stream",
     tags=["Chat"],
     summary="Stream chat responses",
 )
-
 async def stream_chat(
     request: ChatRequest,
     http_request: FastAPIRequest,
     assistant: Assistant = Depends(get_assistant),
+    ):
+    
+    core_request = Request(
+        input=request.message,
+    )
+    
+    async def stream_response():
+        for chunk in assistant.stream(core_request):
+            if await http_request.is_disconnected():
+                return
+            
+            yield chunk
+    
+    return StreamingResponse(
+        stream_response(),
+        media_type="text/plain",
+    )
+
+
+@app.post(
+    "/rag/stream",
+    tags=["RAG"],
+    summary="Stream RAG responses",
+)
+async def stream_rag(
+    request: ChatRequest,
+    http_request: FastAPIRequest,
+    assistant: Assistant = Depends(get_rag_assistant),
     ):
     
     core_request = Request(
