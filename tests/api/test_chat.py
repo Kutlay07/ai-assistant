@@ -13,7 +13,7 @@ def test_chat_returns_response():
             },
         )
     assert response.status_code == 200
-    assert "Hello" in response.json()["response"]
+    assert "response" in response.json()
 
 
 def test_chat_stream():

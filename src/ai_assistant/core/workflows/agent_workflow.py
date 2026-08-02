@@ -1,10 +1,12 @@
+from collections.abc import Callable
+
 from ..models import Request, Response, ToolCall
 from .base_workflow import BaseWorkflow
 from ..llms import BaseLLM
 from ..memory import BaseMemory
 from ..prompts import PromptBuilder
-from ..tools import ToolRegistry, ToolCallValidator
 from ..planners import BasePlanner
+from ..parsers import ToolCallParser
 
 
 class AgentWorkflow(BaseWorkflow):
@@ -16,8 +18,8 @@ class AgentWorkflow(BaseWorkflow):
         prompt_builder: PromptBuilder, 
         memory: BaseMemory,
         planner: BasePlanner,
-        tool_registry: ToolRegistry,
-        tool_call_validator: ToolCallValidator,
+        tool_call_parser: ToolCallParser,
+        execute_tool: Callable[[ToolCall], str] | None = None,
         max_iterations: int = 3,
         ):
         super().__init__()
@@ -26,8 +28,8 @@ class AgentWorkflow(BaseWorkflow):
         self._prompt_builder = prompt_builder
         self._memory = memory
         self._planner = planner
-        self._tool_registry = tool_registry
-        self._tool_call_validator = tool_call_validator
+        self._tool_call_parser = tool_call_parser
+        self._execute_tool = execute_tool
         self._max_iterations = max_iterations
         
         if max_iterations < 1:
@@ -35,17 +37,18 @@ class AgentWorkflow(BaseWorkflow):
                 "max_iterations must be greater than 0."
             )
         
-        
-    def _create_tool_call(self, llm_output: str) -> ToolCall:
-        return ToolCall(
-            tool_name="mock",
-            arguments={
-                "query": llm_output,
-            },
-        )
-
+    def set_execute_tool(
+        self,
+        execute_tool: Callable[[ToolCall], str],
+        ) -> None:
+        self._execute_tool = execute_tool
         
     def run(self, request: Request) -> Response:
+        if self._execute_tool is None:
+            raise RuntimeError(
+                "Tool executor is not configured."
+            )
+            
         self._memory.add_message(request.input)
         
         history = self._memory.get_history()
@@ -64,17 +67,11 @@ class AgentWorkflow(BaseWorkflow):
             
             llm_output = self._llm.generate(prompt)
             
-            tool_call = self._create_tool_call(llm_output)
-            
-            self._tool_call_validator.validate(tool_call)
-            
-            tool = self._tool_registry.get(
-                tool_call.tool_name
+            tool_call = self._tool_call_parser.parse(
+                llm_output
             )
             
-            tool_output = tool.execute(
-                tool_call.arguments
-            )
+            tool_output = self._execute_tool(tool_call)
             
             self._memory.add_message(tool_output)
             

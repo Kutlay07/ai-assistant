@@ -146,7 +146,7 @@ The workflow remains focused on orchestration while delegating prompt constructi
 
 ### Agent Workflow
 
-`AgentWorkflow` provides the foundation for future agent capabilities.
+`AgentWorkflow` provides the foundation for multi-step agent capabilities.
 
 It coordinates:
 
@@ -154,33 +154,36 @@ It coordinates:
 - Task planning through `BasePlanner`
 - Prompt generation
 - LLM interaction
-- Structured tool invocation through `ToolCall`
-- Tool validation through `ToolCallValidator`
-- Tool discovery through `ToolRegistry`
+- Tool-call parsing through `ToolCallParser`
+- Tool execution through the tool executor layer
+- Intermediate execution results
 
-The current implementation generates an execution plan through the planner and processes each plan step sequentially. Each step is executed through the LLM, validated tool calls, and the registered tool system while preserving conversation state in memory. This provides the foundation for future autonomous reasoning and multi-step agent workflows.
+The current implementation generates an execution plan through the planner and processes each plan step sequentially. Each step is converted into a structured tool call, executed through the configured tool execution layer, and stored in conversation memory.
 
-The workflow creates an execution plan before interacting with the language model. This separates planning from execution and provides a foundation for future task decomposition and advanced reasoning capabilities.
+This separation allows planning, reasoning, and tool execution responsibilities to evolve independently while providing a foundation for future autonomous agent capabilities.
 
-The execution loop is driven by planner-generated execution steps. Each plan step is processed sequentially, allowing the assistant to combine planning, reasoning, and tool execution while maintaining conversation state across the workflow.
-
+The execution loop is driven by planner-generated execution steps. Each step can trigger a tool interaction, allowing the assistant to coordinate multiple operations while maintaining conversation state.
 
 ### Responsibilities
 
 - Receive a request.
 - Retrieve conversation history from memory.
-- Build a prompt using the PromptBuilder.
-- Generate a response through the configured LLM.
-- Execute external tools.
-- Store the conversation in memory.
-- Return the generated response.
+- Create an execution plan using `BasePlanner`.
+- Build prompts using `PromptBuilder`.
+- Generate tool calls through the configured LLM.
+- Parse tool calls using `ToolCallParser`.
+- Execute external tools through the tool executor.
+- Store intermediate results in memory.
+- Return the final response.
 
 ### Dependencies
 
+- `BasePlanner`
 - `PromptBuilder`
 - `BaseMemory`
 - `BaseLLM`
-- `BaseTool`
+- `ToolCallParser`
+- Tool Executor
 
 
 
