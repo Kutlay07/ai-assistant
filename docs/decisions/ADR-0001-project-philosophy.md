@@ -4,48 +4,56 @@
 
 Accepted
 
-
+---
 
 ## Context
 
-This project is intended to be a long-term learning and engineering journey toward building production-quality AI systems.
+This project aims to evolve into a production-quality, modular AI assistant platform while maintaining a deep understanding of the underlying concepts and engineering decisions.
 
-Rather than focusing only on delivering working features, the project emphasizes understanding the underlying concepts, software architecture, and engineering trade-offs behind every major design decision.
+The goal is not only to build functional AI features, but also to understand the architectures, abstractions, and trade-offs behind modern AI systems.
 
+The project prioritizes long-term maintainability and technical understanding over rapid feature development.
 
+---
 
 ## Decision
 
-The project will follow the following principles:
+The project will follow these principles:
 
-- Build from first principles whenever practical.
-- Understand architectures before adopting frameworks.
-- Prefer modular and extensible designs.
-- Prioritize clean software engineering practices.
-- Develop the system incrementally.
-- Keep the codebase provider-independent.
+- Build core concepts from first principles whenever practical.
+- Understand architectures before adopting high-level frameworks.
+- Prefer modular and extensible system designs.
+- Maintain clean software engineering practices.
+- Develop features incrementally through well-defined milestones.
+- Keep the system provider-independent.
 - Favor composition over inheritance.
-- Write documentation alongside implementation.
+- Document architectural decisions and implementation details alongside development.
 
-
+---
 
 ## Consequences
 
 ### Positive
 
-- Better understanding of AI system design.
-- High-quality and maintainable codebase.
-- Easier experimentation with different technologies.
-- Improved long-term scalability.
+- Deeper understanding of AI system architectures.
+- Maintainable and extensible codebase.
+- Easier experimentation with different technologies and providers.
+- Better preparation for production-scale AI engineering.
 
 ### Trade-offs
 
-- Development may be slower.
-- Additional documentation requires extra effort.
-- Some components may be implemented manually before using existing frameworks.
+- Development speed may be slower compared to using existing frameworks immediately.
+- Additional documentation requires continuous effort.
+- Some components may be implemented manually before adopting industry-standard solutions.
 
-
+---
 
 ## Notes
 
-Frameworks are considered valuable tools, but they should be introduced only after understanding the problems they solve.
+Frameworks and libraries are considered valuable tools.
+
+However, they should be introduced after understanding the problems they solve and the abstractions they provide.
+
+The project follows the principle:
+
+> Understand the fundamentals. Implement the concepts. Then use the ecosystem effectively.

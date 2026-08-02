@@ -1,0 +1,88 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Sayfa-1" id="jLm51rZ0V6_KjiG7HtuS">
+    <mxGraphModel dx="1324" dy="1520" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="" mermaidData="{&#xa;  &quot;data&quot;: &quot;flowchart TD\n\nBase[BaseMemory]\n\nMock[MockMemory]\n\nFile[FileMemory]\n\nSQLite[SQLiteMemory]\n\nRedis[RedisMemory]\n\nJSON[conversation.json]\n\nBase --&gt; Mock\nBase --&gt; File\nBase --&gt; SQLite\nBase --&gt; Redis\n\nFile --&gt; JSON&quot;,&#xa;  &quot;config&quot;: null&#xa;}" id="_CIS97EtbWJAc1K7_11d-155">
+          <mxCell connectable="0" parent="1" style="group;transparentBounds=1;editIcon=1;lockedGroup=0;groupPadding=10;rounded=1;" vertex="1">
+            <mxGeometry as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="BaseMemory" mermaidId="n:Base" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="BaseMemory" id="_CIS97EtbWJAc1K7_11d-156">
+          <mxCell parent="_CIS97EtbWJAc1K7_11d-155" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=#6d8764;strokeColor=#3A5431;fontColor=#ffffff;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;rounded=1;" vertex="1">
+            <mxGeometry height="54" width="149" x="330" y="30" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="MockMemory" mermaidId="n:Mock" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="MockMemory" id="_CIS97EtbWJAc1K7_11d-157">
+          <mxCell parent="_CIS97EtbWJAc1K7_11d-155" style="html=1;whiteSpace=wrap;strokeWidth=1;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;rounded=1;fillColor=#d0cee2;strokeColor=#56517e;" vertex="1">
+            <mxGeometry height="54" width="152" x="30" y="134" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="FileMemory" mermaidId="n:File" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="FileMemory" id="_CIS97EtbWJAc1K7_11d-158">
+          <mxCell parent="_CIS97EtbWJAc1K7_11d-155" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=#bac8d3;strokeColor=#23445d;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;rounded=1;" vertex="1">
+            <mxGeometry height="54" width="142" x="232" y="134" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="SQLiteMemory" mermaidId="n:SQLite" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="SQLiteMemory" id="_CIS97EtbWJAc1K7_11d-159">
+          <mxCell parent="_CIS97EtbWJAc1K7_11d-155" style="html=1;whiteSpace=wrap;strokeWidth=1;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;rounded=1;" vertex="1">
+            <mxGeometry height="54" width="162" x="424" y="134" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="RedisMemory" mermaidId="n:Redis" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="RedisMemory" id="_CIS97EtbWJAc1K7_11d-160">
+          <mxCell parent="_CIS97EtbWJAc1K7_11d-155" style="html=1;whiteSpace=wrap;strokeWidth=1;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;rounded=1;" vertex="1">
+            <mxGeometry height="54" width="153" x="636" y="134" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="conversation.json" mermaidId="n:JSON" mermaidBaseStyle="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;" mermaidBaseValue="conversation.json" id="_CIS97EtbWJAc1K7_11d-161">
+          <mxCell parent="_CIS97EtbWJAc1K7_11d-155" style="html=1;whiteSpace=wrap;strokeWidth=1;fillColor=#f8cecc;strokeColor=#b85450;fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;rounded=1;" vertex="1">
+            <mxGeometry height="54" width="187" x="210" y="238" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:Base-&gt;Mock#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0;exitY=0.74;entryX=0.5;entryY=0;" mermaidBaseValue="" id="_CIS97EtbWJAc1K7_11d-162">
+          <mxCell edge="1" parent="_CIS97EtbWJAc1K7_11d-155" source="_CIS97EtbWJAc1K7_11d-156" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0;exitY=0.74;entryX=0.5;entryY=0;rounded=1;" target="_CIS97EtbWJAc1K7_11d-157">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="106" y="109" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:Base-&gt;File#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.15;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="_CIS97EtbWJAc1K7_11d-163">
+          <mxCell edge="1" parent="_CIS97EtbWJAc1K7_11d-155" source="_CIS97EtbWJAc1K7_11d-156" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.15;exitY=1;entryX=0.5;entryY=0;rounded=1;" target="_CIS97EtbWJAc1K7_11d-158">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="303" y="109" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:Base-&gt;SQLite#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.85;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="_CIS97EtbWJAc1K7_11d-164">
+          <mxCell edge="1" parent="_CIS97EtbWJAc1K7_11d-155" source="_CIS97EtbWJAc1K7_11d-156" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.85;exitY=1;entryX=0.5;entryY=0;rounded=1;" target="_CIS97EtbWJAc1K7_11d-159">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="505" y="109" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:Base-&gt;Redis#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=1;exitY=0.74;entryX=0.5;entryY=0;" mermaidBaseValue="" id="_CIS97EtbWJAc1K7_11d-165">
+          <mxCell edge="1" parent="_CIS97EtbWJAc1K7_11d-155" source="_CIS97EtbWJAc1K7_11d-156" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=1;exitY=0.74;entryX=0.5;entryY=0;rounded=1;" target="_CIS97EtbWJAc1K7_11d-160">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="713" y="109" />
+              </Array>
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+        <UserObject label="" mermaidId="e:File-&gt;JSON#0" mermaidBaseStyle="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;" mermaidBaseValue="" id="_CIS97EtbWJAc1K7_11d-166">
+          <mxCell edge="1" parent="_CIS97EtbWJAc1K7_11d-155" source="_CIS97EtbWJAc1K7_11d-158" style="curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=1;" target="_CIS97EtbWJAc1K7_11d-161">
+            <mxGeometry relative="1" as="geometry">
+              <Array as="points" />
+            </mxGeometry>
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
