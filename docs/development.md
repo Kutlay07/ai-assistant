@@ -4,27 +4,13 @@
 
 This document describes the development workflow followed throughout the AI Assistant project.
 
-The goal is to keep development incremental, well-documented, and architecture-driven while maintaining production-quality engineering practices.
+The goal is to keep development incremental, architecture-driven, and production-oriented while maintaining clear documentation and engineering discipline.
 
+---
 
+# Development Process
 
-## LLM Providers
-
-The assistant uses interchangeable LLM providers through the `BaseLLM` abstraction.
-
-Currently available providers:
-
-- MockLLM
-- OpenAIProvider (OpenAI-compatible APIs)
-- LocalProvider (placeholder)
-
-The active provider is selected through environment configuration.
-
-
-
-## Development Process
-
-Every feature should follow the same development cycle.
+Every feature follows the same development cycle.
 
 ```text
 Issue
@@ -37,104 +23,143 @@ Testing
    ↓
 Documentation
    ↓
-Commit
+Pull Request
    ↓
-Close Issue
+Review
+   ↓
+Merge
 ```
 
-This process encourages thoughtful design before implementation and keeps the repository organized as it grows.
+This process encourages thoughtful design before implementation and keeps the repository organized as the system evolves.
 
+---
 
+# Git Workflow
 
-## Git Workflow
+Development follows a simple GitHub-based workflow.
 
-Development follows a simple and consistent Git workflow.
+Guidelines:
 
 - Work on one logical task at a time.
+- Create issues before implementing features.
+- Use dedicated branches for changes.
 - Keep commits small and focused.
 - Write meaningful commit messages.
-- Push changes frequently.
-- Close issues only after implementation, testing, and documentation are complete.
+- Submit pull requests for review.
+- Merge only after tests and documentation are complete.
 
+---
 
+# Branch Naming
 
-## Commit Convention
-
-The project follows the Conventional Commits specification.
-
-Common commit types include:
-
-- `feat` – New features
-- `fix` – Bug fixes
-- `docs` – Documentation
-- `refactor` – Code improvements without changing behavior
-- `test` – Tests
-- `chore` – Maintenance and project configuration
+Branches should describe the purpose of the change.
 
 Examples:
 
 ```text
-feat(llm): add Groq provider
-docs: add architecture overview
-refactor(memory): simplify conversation storage
-test(tools): add calculator tests
+feature/persistent-memory
+feature/agent-workflow
+docs/reorganize-documentation
+fix/memory-loading-error
 ```
 
+---
 
+# Commit Convention
 
-## Documentation
+The project follows the Conventional Commits specification.
 
-Documentation is treated as part of the project, not as an afterthought.
+Common commit types:
+
+- `feat` – New features
+- `fix` – Bug fixes
+- `docs` – Documentation changes
+- `refactor` – Code improvements without behavior changes
+- `test` – Test additions or improvements
+- `chore` – Maintenance and configuration
+
+Examples:
+
+```text
+feat(memory): add persistent file storage
+
+docs: reorganize architecture documentation
+
+test(agent): add workflow integration tests
+```
+
+---
+
+# Documentation
+
+Documentation is treated as part of the implementation process.
 
 Guidelines:
 
-- Keep documentation synchronized with implementation.
-- Record important architectural decisions as ADRs.
-- Update architecture documents whenever the system evolves.
-- Prefer explaining why a decision was made, not only what was implemented.
+- Keep documentation synchronized with code changes.
+- Record architectural decisions using ADRs.
+- Update architecture documents when responsibilities change.
+- Explain why decisions were made, not only what was implemented.
 
+---
 
-
-## Testing
+# Testing
 
 Testing is introduced incrementally as the project grows.
 
-General principles:
+Principles:
 
-- Prefer small and isolated unit tests.
-- Test public behavior rather than implementation details.
-- Add tests whenever practical for new functionality.
+- Prefer isolated unit tests.
+- Test public behavior instead of internal implementation details.
+- Add integration tests for workflows and major features.
+- Ensure tests pass before merging changes.
 
+---
 
+# Running the API
 
-## Running the API
+The project includes a FastAPI application for local development.
 
-The project includes a FastAPI application for local development and future production deployment.
-
-Start the development server with:
+Start the development server:
 
 ```bash
 python -m fastapi dev src/ai_assistant/api/main.py
 ```
 
-The interactive API documentation is available at:
+API documentation:
+
+```
 http://127.0.0.1:8000/docs
+```
 
-The ReDoc documentation is available at:
+ReDoc documentation:
+
+```
 http://127.0.0.1:8000/redoc
+```
 
-## Releases
+---
+
+# Releases
 
 Releases are milestone-based rather than commit-based.
 
-Each release should represent a meaningful stage in the project's evolution instead of a collection of unrelated commits.
+Each release represents a meaningful stage in the project's evolution.
 
+A release should include:
 
+- Completed features
+- Updated documentation
+- Passing tests
+- Stable architecture
 
-## Project Philosophy
+---
 
-The project's engineering philosophy is documented separately.
+# Project Philosophy
+
+The project's engineering principles are documented separately.
 
 See:
 
 - ADR-0001 — Project Philosophy
+- ADR-0002 — Provider Independence

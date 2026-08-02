@@ -2,147 +2,215 @@
 
 ## Overview
 
-This roadmap describes the planned evolution of the AI Assistant project from a minimal chat application into a modular, production-ready AI assistant platform.
+This roadmap describes the evolution of the AI Assistant project from a minimal assistant framework into a modular, production-ready AI assistant platform.
 
-The project follows an incremental development approach, where each phase introduces a well-defined architectural milestone before moving to the next.
-
----
-
-## Guiding Principles
-
-- Build from first principles before relying on frameworks.
-- Prioritize architecture over rapid feature development.
-- Keep the system modular and provider-independent.
-- Build incrementally with small, testable milestones.
-- Favor composition over inheritance.
-- Design for maintainability, scalability, and readability.
+The project is developed incrementally through milestone-based releases. Each milestone introduces new architectural capabilities while preserving modularity, provider independence, and maintainability.
 
 ---
 
-# Development Phases
+# Guiding Principles
 
-## Phase 0 — Foundation
-
-**Goal**
-
-_Project foundation and architectural planning._
-
-**Planned Components**
-
-- Documentation
-- Project structure
-- Initial architecture
-- Development workflow
-
-**Release**
-
-v0.1.0
-
----
-
-## Phase 1 — Assistant Core
-
-**Goal**
-
-_Build the minimal conversational assistant._
-
-**Planned Components**
-
-- Chat models
-- Conversation flow
-- Assistant core
-- Prompt building
-
-**Release**
-
-v0.2.0
-
----
-
-## Phase 2 — LLM Providers
-
-**Goal**
-
-_Introduce provider-independent LLM integrations._
-
-**Planned Components**
-
-- LLM abstraction
-- Groq provider
-- Provider factory
-
-**Release**
-
-v0.3.0
-
----
-
-## Phase 3 — Tool System
-
-_To be defined._
-
----
-
-## Phase 4 — Agent Loop
-
-_To be defined._
-
----
-
-## Phase 5 — Planning
-
-_To be defined._
-
----
-
-## Phase 6 — Memory
-
-_To be defined._
-
----
-
-## Phase 7 — RAG Integration
-
-_To be defined._
-
----
-
-## Phase 8 — Streaming
-
-_To be defined._
-
----
-
-## Phase 9 — Interfaces
-
-_To be defined._
-
----
-
-## Phase 10 — MCP Integration
-
-_To be defined._
-
----
-
-## Phase 11 — Production Readiness
-
-_To be defined._
-
----
-
-# Future Ideas
-
-Ideas that are intentionally kept outside the current roadmap.
-
-- Multi-agent systems
-- Voice interaction
-- Vision capabilities
-- Distributed execution
-- Additional provider integrations
+- Build core concepts from first principles before adopting frameworks.
+- Understand internal architecture before introducing high-level abstractions.
+- Keep components modular and provider-independent.
+- Prefer composition over inheritance.
+- Maintain production-quality engineering practices.
+- Develop through small, testable milestones.
 
 ---
 
 # Completed Milestones
 
-_No milestones completed yet._
+## v0.1.0 — Foundation
+
+Establish the architectural foundation of the AI Assistant.
+
+Completed:
+
+- Documentation system
+- Project structure
+- High-level architecture
+- Core abstractions
+- Initial LLM interface
+
+---
+
+## v0.2.0 — Core Assistant
+
+Build the foundational components required by future capabilities.
+
+Completed:
+
+- Shared domain models
+- Workflow abstraction
+- Assistant orchestration
+- First workflow implementation
+- Unit testing foundation
+
+---
+
+## v0.3.0 — LLM Foundation
+
+Introduce provider-independent Large Language Model integration.
+
+Completed:
+
+- LLM abstraction layer
+- Provider-independent architecture
+- Prompt execution separation
+- LLM provider integration
+- Provider testing
+
+---
+
+## v0.4.0 — Core Assistant Capabilities
+
+Expand the assistant core with reusable capabilities.
+
+Completed:
+
+- Memory abstraction
+- Tool abstraction
+- Prompt improvements
+- Independent component architecture
+
+---
+
+## v0.5.0 — Retrieval Foundation
+
+Build the retrieval infrastructure required for RAG workflows.
+
+Completed:
+
+- Document and chunk models
+- Embedder abstraction
+- Vector store abstraction
+- Retriever architecture
+- First retrieval workflow
+
+---
+
+## v0.6.0 — Knowledge Base Ingestion
+
+Build a reusable document ingestion pipeline.
+
+Completed:
+
+- Document loading pipeline
+- Document processing flow
+- Chunk generation
+- Indexing preparation
+- Knowledge base foundations
+
+---
+
+## v0.7.0 — RAG Improvements & Agent Foundations
+
+Improve retrieval capabilities and introduce initial agent architecture.
+
+Completed:
+
+- Retrieval improvements
+- Modular tool execution
+- Initial agent workflow architecture
+- Preparation for real LLM integrations
+
+---
+
+## v0.8.0 — Intelligent Agent Capabilities
+
+Introduce advanced agent execution capabilities.
+
+Completed:
+
+- Agent workflow improvements
+- Dynamic tool execution foundations
+- Structured tool calling
+- Planning foundations
+- Multi-step execution flow
+
+---
+
+## v0.9.0 — API & Serving Layer
+
+Transform the assistant framework into a reusable backend service.
+
+Completed:
+
+- FastAPI application foundation
+- REST API endpoints
+- API request and response models
+- Streaming foundations
+- Production-ready serving architecture
+
+---
+
+# Upcoming Milestones
+
+## v1.0.0 — Public Release
+
+Goals:
+
+- Release-quality documentation
+- Installation guide
+- Usage examples
+- Documentation reorganization
+- Stable architecture
+- First public release
+
+---
+
+# Future Roadmap
+
+## v1.x — Production AI Platform
+
+Planned:
+
+- Advanced streaming
+- Improved user interfaces
+- Better observability
+- Production deployment support
+- Docker integration
+- Performance improvements
+
+---
+
+## MCP Integration
+
+Planned:
+
+- Model Context Protocol support
+- Standardized tool communication
+- External capability ecosystem
+
+---
+
+## Advanced Agent Systems
+
+Planned:
+
+- ReAct-style reasoning
+- Multi-agent systems
+- Long-running autonomous tasks
+- Improved planning strategies
+
+---
+
+## Multimodal Capabilities
+
+Planned:
+
+- Voice interaction
+- Vision capabilities
+- Multimodal models
+
+---
+
+## Large-Scale Infrastructure
+
+Planned:
+
+- Distributed execution
+- Advanced retrieval systems
+- Local model serving
+- High-performance inference systems

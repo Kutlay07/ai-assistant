@@ -1,50 +1,77 @@
-# ADR-0002 Provider Independence
+# ADR-0002: Provider Independence
 
 ## Status
 
 Accepted
 
+---
 
 ## Context
 
-The assistant must support multiple language model providers without changing the core application.
+The assistant must support different infrastructure providers without requiring changes to the core application logic.
 
-Different providers expose different APIs, authentication mechanisms, deployment models, and capabilities.
+Language model providers may differ in:
 
-Depending directly on provider-specific implementations would tightly couple the workflow layer to infrastructure and make future provider replacements more difficult.
+- API design
+- Authentication mechanisms
+- Deployment strategies
+- Available capabilities
+- Operational requirements
 
-`BaseLLM` defines the common interface for language model providers through a shared generation contract.
+Direct dependency on provider-specific implementations would tightly couple workflows to external infrastructure and make future integrations more difficult.
 
-Workflows interact only with this interface and never with provider-specific implementations.
+To avoid this coupling, the system introduces abstraction layers that define stable contracts between the core architecture and external providers.
 
+For language models, `BaseLLM` defines the common interface through a shared generation contract.
+
+Workflows interact only with these abstractions and remain unaware of concrete provider implementations.
+
+---
 
 ## Decision
 
-The system depends only on the `BaseLLM` abstraction rather than concrete provider implementations.
+The system depends on abstractions rather than concrete provider implementations.
 
-Concrete implementations are responsible for communicating with individual providers.
+For language models:
 
-Examples of implementations include:
+- Workflows depend on `BaseLLM`.
+- Providers implement the `BaseLLM` contract.
+- Provider-specific logic remains isolated inside implementations.
 
-- MockLLM (testing)
-- LocalLLM (local inference)
-- RemoteLLM (hosted providers)
+Current implementations include:
 
-Provider-specific implementations such as OpenAI, Anthropic, or Ollama can be implemented behind these abstractions.
+- `MockLLM` — Testing and development
+- `GroqProvider` — Hosted inference provider
+- `LocalProvider` — Local model inference foundation
 
-Workflows interact only with the abstraction and remain unaware of provider-specific details.
+Future integrations may include:
+
+- OpenAI
+- Anthropic
+- Ollama
+- Other compatible providers
+
+The same architectural principle is expected to apply to other external systems such as:
+
+- Embedding providers
+- Vector databases
+- Memory backends
+- Tool providers
+
+---
 
 ## Consequences
 
 ### Advantages
 
 - Provider independence
-- Dependency inversion
-- Easier testing through MockLLM
-- Improved maintainability
-- Easier future integrations
+- Reduced coupling between core logic and infrastructure
+- Easier testing through mock implementations
+- Simpler provider replacement
+- Better long-term maintainability
 
 ### Trade-offs
 
-- Additional abstraction layer
-- Slight increase in implementation complexity
+- Additional abstraction layers
+- Slight increase in initial implementation complexity
+- More interfaces require maintenance over time
