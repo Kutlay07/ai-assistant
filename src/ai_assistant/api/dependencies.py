@@ -2,7 +2,6 @@ from ai_assistant.core.assistant import Assistant
 
 from ai_assistant.core.embedders import MockEmbedder
 from ai_assistant.core.llms import create_llm
-from ai_assistant.core.memory import MockMemory
 from ai_assistant.core.models import Chunk
 from ai_assistant.core.prompts import PromptBuilder
 from ai_assistant.core.retrievers import MockRetriever
@@ -10,6 +9,14 @@ from ai_assistant.core.services import SearchService
 from ai_assistant.core.vector_stores import MockVectorStore
 from ai_assistant.core.workflows import ChatWorkflow, RAGWorkflow
 from ai_assistant.core.tools import ToolRegistry, MockTool
+from ai_assistant.core.memory import FileMemory
+from ai_assistant.core.config import settings
+
+
+def create_memory() -> FileMemory:
+    return FileMemory(
+        settings.get_memory_path(),
+    )
 
 
 def create_search_service() -> SearchService:
@@ -53,7 +60,7 @@ def get_assistant() -> Assistant:
     workflow = ChatWorkflow(
         llm=create_llm(),
         prompt_builder=PromptBuilder(),
-        memory=MockMemory(),
+        memory=create_memory(),
     )
 
     return Assistant(
@@ -67,7 +74,7 @@ def get_rag_assistant() -> Assistant:
         llm=create_llm(),
         prompt_builder=PromptBuilder(),
         search_service=create_search_service(),
-        memory=MockMemory(),
+        memory=create_memory(),
     )
 
     return Assistant(
