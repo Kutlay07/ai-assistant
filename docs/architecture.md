@@ -167,6 +167,7 @@ The execution loop is driven by planner-generated execution steps. Each step can
 ### Responsibilities
 
 - Receive a request.
+- Generate an execution plan.
 - Retrieve conversation history from memory.
 - Create an execution plan using `BasePlanner`.
 - Build prompts using `PromptBuilder`.
