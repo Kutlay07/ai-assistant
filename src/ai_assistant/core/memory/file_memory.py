@@ -20,7 +20,15 @@ class FileMemory(BaseMemory):
             return []
         
         with self._path.open("r", encoding="utf-8") as file:
-            return json.load(file)
+            try:
+                messages = json.load(file)
+            except json.JSONDecodeError:
+                return []
+            
+            if not isinstance(messages, list):
+                return []
+            
+            return messages
         
         
     def _save_messages(self, messages: list[str]):
