@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+from pathlib import Path
 
 import os
 
@@ -19,3 +20,12 @@ def get_llm_model() -> str | None:
 
 def get_llm_base_url() -> str | None:
     return os.getenv("LLM_BASE_URL")
+
+
+def get_memory_path() -> Path:
+    return Path(
+        os.getenv(
+            "MEMORY_PATH",
+            "conversation.json",
+        )
+    )

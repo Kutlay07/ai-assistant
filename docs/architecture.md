@@ -323,27 +323,39 @@ Prompt templates are stored separately from application logic, making prompt con
 
 Memory is responsible for storing and retrieving conversation history independently from workflow logic.
 
-Workflows interacts with memory through the `BaseMemory` abstraction to retrieve conversation history and store newly generated messages.
+Workflows interact with memory exclusively through the `BaseMemory` abstraction, allowing memory implementations to be replaced without affecting workflow behavior.
 
-The assistant communicates with memory implementations through the `BaseMemory` abstraction.
+The assistant remains completely decoupled from the underlying storage mechanism and communicates only through the memory interface.
 
 ### Implementations
 
 Current implementations:
 
 - MockMemory
-
-Future implementations may include:
-
 - FileMemory
+
+Planned implementations:
+
 - SQLiteMemory
 - RedisMemory
 
+
+
 ### MockMemory
 
-MockMemory is a lightweight in-memory implementation intended for development and testing.
+`MockMemory` is a lightweight in-memory implementation intended for development and testing.
 
-It stores conversation history without relying on external storage systems.
+Conversation history exists only while the application is running and is discarded when the process stops.
+
+
+
+### FileMemory
+
+`FileMemory` provides persistent conversation storage using a JSON file.
+
+Conversation history is automatically loaded when the application starts and saved after every new message, allowing conversations to persist across application restarts.
+
+The storage location is configurable through the `MEMORY_PATH` setting, making the implementation portable across local development, Docker environments, and future deployment targets.
 
 
 
