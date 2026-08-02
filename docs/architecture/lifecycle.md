@@ -8,7 +8,7 @@ It focuses on how requests, dependencies, and retrieval move through the system 
 
 
 
-# Dependency Graph
+## Dependency Graph
 
 ```text
                  Assistant
@@ -55,7 +55,7 @@ It focuses on how requests, dependencies, and retrieval move through the system 
 
 
 
-# Chat Request Lifecycle
+## Chat Request Lifecycle
 
 ```text
 User
@@ -91,7 +91,7 @@ Workflow
 
 
 
-# RAG Request Lifecycle
+## RAG Request Lifecycle
 
 ```text
 User
@@ -123,7 +123,7 @@ Response
 
 
 
-# Agent Request Lifecycle
+## Agent Request Lifecycle
 
 ```text
 User
@@ -167,29 +167,10 @@ Response
 
 
 
-# Document Ingestion Pipeline
+## Related Documentation
 
-```text
-Document Source
-      │
-      ▼
-    Indexer
-      │
-      ▼
-    Loader
-      │
-      ▼
-   Document
-      │
-      ▼
- TextSplitter
-      │
-      ▼
-    Chunks
-      │
-      ▼
-   Embedder
-      │
-      ▼
- Vector Store
-```
+Document ingestion is part of the retrieval subsystem.
+
+For details about document ingestion and retrieval, see:
+
+- [Retrieval Architecture](retrieval.md)

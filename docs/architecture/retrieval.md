@@ -8,26 +8,26 @@ Each component has a single responsibility and communicates through abstractions
 
 The retrieval system consists of:
 
-- Documents
-- Text Splitter
-- Embedder
-- Vector Store
-- Retriever
+- `Documents`
+- `TextSplitter`
+- `Embedder`
+- `VectorStore`
+- `Retriever`
 
 
 
-# Documents
+## Documents
 
 Documents provide provider-independent domain models shared across the retrieval pipeline.
 
 They represent textual knowledge before and after chunking.
 
-## Current Models
+### Current Models
 
 - `Document`
 - `Chunk`
 
-## Planned Extensions
+### Planned Extensions
 
 Future document models may include:
 
@@ -38,7 +38,7 @@ Future document models may include:
 
 
 
-# Text Splitter
+## Text Splitter
 
 `TextSplitter` is responsible for dividing documents into overlapping chunks before indexing.
 
@@ -48,17 +48,17 @@ The generated chunks become the input for the embedding pipeline.
 
 
 
-# Embedder
+## Embedder
 
 Embedders generate vector representations of text for semantic search.
 
 The assistant communicates with embedding providers exclusively through the `BaseEmbedder` abstraction.
 
-## Current Implementations
+### Current Implementations
 
 - `MockEmbedder`
 
-## Planned Implementations
+### Planned Implementations
 
 - `SentenceTransformerEmbedder`
 - `OpenAIEmbedder`
@@ -66,7 +66,7 @@ The assistant communicates with embedding providers exclusively through the `Bas
 
 
 
-## MockEmbedder
+### MockEmbedder
 
 `MockEmbedder` is intended for development and testing.
 
@@ -78,17 +78,17 @@ Characteristics:
 
 
 
-# Vector Store
+## Vector Store
 
 Vector stores are responsible for storing embeddings and performing similarity search.
 
 The assistant communicates with vector storage providers through the `BaseVectorStore` abstraction.
 
-## Current Implementations
+### Current Implementations
 
 - `MockVectorStore`
 
-## Planned Implementations
+### Planned Implementations
 
 - `ChromaVectorStore`
 - `FAISSVectorStore`
@@ -97,7 +97,7 @@ The assistant communicates with vector storage providers through the `BaseVector
 
 
 
-## MockVectorStore
+### MockVectorStore
 
 `MockVectorStore` is an in-memory implementation intended for testing.
 
@@ -109,7 +109,7 @@ Characteristics:
 
 
 
-# Retriever
+## Retriever
 
 Retrievers locate the most relevant document chunks for a query.
 
@@ -117,16 +117,16 @@ They combine embedding generation and vector search while remaining independent 
 
 The assistant communicates through the `BaseRetriever` abstraction.
 
-## Dependencies
+### Dependencies
 
 - `BaseEmbedder`
 - `BaseVectorStore`
 
-## Current Implementations
+### Current Implementations
 
 - `MockRetriever`
 
-## Planned Implementations
+### Planned Implementations
 
 - `SemanticRetriever`
 - `HybridRetriever`
@@ -134,7 +134,7 @@ The assistant communicates through the `BaseRetriever` abstraction.
 
 
 
-## MockRetriever
+### MockRetriever
 
 `MockRetriever` is intended for development and testing.
 
@@ -142,7 +142,7 @@ It retrieves chunks by combining the configured embedder and vector store withou
 
 
 
-# Document Ingestion Pipeline
+## Document Ingestion Pipeline
 
 The ingestion pipeline prepares external knowledge for semantic retrieval.
 
@@ -173,6 +173,6 @@ Document Source
 
 
 
-# Retrieval API
+## Retrieval API
 
 The retrieval layer supports configurable search parameters such as `top_k`, allowing workflows to control retrieval behavior independently from implementation details.

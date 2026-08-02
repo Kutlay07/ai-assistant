@@ -20,7 +20,7 @@ The assistant depends only on this abstraction.
 
 
 
-## Current Implementations
+### Current Implementations
 
 - `GroqProvider`
 - `MockLLM`

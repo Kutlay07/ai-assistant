@@ -23,14 +23,14 @@ Every implementation is responsible for:
 
 
 
-## Current Implementations
+### Current Implementations
 
 - `MockMemory`
 - `FileMemory`
 
 
 
-## MockMemory
+### MockMemory
 
 `MockMemory` is a lightweight in-memory implementation intended for development and testing.
 
@@ -45,7 +45,7 @@ Conversation history is discarded when the application stops.
 
 
 
-## FileMemory
+### FileMemory
 
 `FileMemory` provides persistent conversation storage using a JSON file.
 
@@ -77,7 +77,7 @@ MEMORY_PATH=data/conversation.json
 
 
 
-## Planned Implementations
+### Planned Implementations
 
 Future memory providers may include:
 

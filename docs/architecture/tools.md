@@ -8,15 +8,15 @@ Workflows never communicate with concrete tool implementations directly. Instead
 
 The tool system consists of:
 
-- BaseTool
-- ToolRegistry
-- ToolCall
-- ToolCallParser
-- ToolCallValidator
+- `BaseTool`
+- `ToolRegistry`
+- `ToolCall`
+- `ToolCallParser`
+- `ToolCallValidator`
 
 
 
-# BaseTool
+## BaseTool
 
 `BaseTool` defines the common contract implemented by every tool.
 
@@ -26,13 +26,13 @@ The assistant communicates exclusively through this abstraction.
 
 
 
-## Current Implementations
+### Current Implementations
 
 - `MockTool`
 
 
 
-## Planned Implementations
+### Planned Implementations
 
 Future tools may include:
 
@@ -43,7 +43,7 @@ Future tools may include:
 
 
 
-## MockTool
+### MockTool
 
 `MockTool` is intended for development and testing.
 
@@ -55,7 +55,7 @@ Characteristics:
 
 
 
-# ToolRegistry
+## ToolRegistry
 
 `ToolRegistry` manages all available tools.
 
@@ -69,7 +69,7 @@ The assistant depends on the registry instead of individual tool implementations
 
 
 
-# ToolCall
+## ToolCall
 
 `ToolCall` represents a structured request to execute a tool.
 
@@ -82,7 +82,7 @@ Typical fields include:
 
 
 
-# ToolCallParser
+## ToolCallParser
 
 `ToolCallParser` converts language model output into structured `ToolCall` objects.
 
@@ -90,7 +90,7 @@ Separating parsing from execution allows parsing strategies to evolve independen
 
 
 
-# ToolCallValidator
+## ToolCallValidator
 
 `ToolCallValidator` validates parsed tool calls before execution.
 
@@ -104,7 +104,7 @@ Keeping validation separate improves reliability and simplifies testing.
 
 
 
-# Tool Execution Flow
+## Execution Flow
 
 ```text
 LLM

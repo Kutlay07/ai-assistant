@@ -44,7 +44,7 @@ The Assistant depends on:
 
 
 
-# Workflows
+## Workflows
 
 A workflow defines **how** a request is processed.
 
@@ -69,15 +69,15 @@ Shared abstractions include:
 
 
 
-# Request & Response
+## Request & Response
 
 The assistant communicates internally using two shared domain models.
 
-## Request
+### Request
 
 Represents the user's input together with any metadata required for execution.
 
-## Response
+### Response
 
 Represents the final result produced by the workflow.
 

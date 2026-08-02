@@ -20,24 +20,14 @@ The assistant communicates exclusively through this abstraction.
 
 
 
-## Plan
-
-A `Plan` represents an ordered collection of execution steps.
-
-Each step describes a unit of work that the workflow processes sequentially.
-
-This allows workflows to focus on orchestration while planners remain responsible for decision making.
-
-
-
-## Current Implementations
+### Current Implementations
 
 - `MockPlanner`
 - `RuleBasedPlanner`
 
 
 
-## MockPlanner
+### MockPlanner
 
 `MockPlanner` is intended for development and testing.
 
@@ -49,7 +39,7 @@ Characteristics:
 
 
 
-## RuleBasedPlanner
+### RuleBasedPlanner
 
 `RuleBasedPlanner` creates execution plans using predefined planning rules.
 
@@ -68,7 +58,7 @@ Current planning rules include:
 
 
 
-## Planned Implementations
+### Planned Implementations
 
 Future planners may include:
 
@@ -76,6 +66,16 @@ Future planners may include:
 - `ReActPlanner`
 - `TreeOfThoughtPlanner`
 - `PlanningAgent`
+
+
+
+## Plan
+
+A `Plan` represents an ordered collection of execution steps.
+
+Each step describes a unit of work that the workflow processes sequentially.
+
+This allows workflows to focus on orchestration while planners remain responsible for decision making.
 
 
 
