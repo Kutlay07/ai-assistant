@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 
-from ai_assistant.api.main import app
+from main import app
+from ai_assistant.api.constants import API_PREFIX
 
 
 client = TestClient(app)
@@ -8,7 +9,7 @@ client = TestClient(app)
 
 def test_rag_endpoint_returns_retrieved_context():
     response = client.post(
-        "/rag",
+        f"{API_PREFIX}/rag",
         json={
             "message": "What is RAG?",
         },

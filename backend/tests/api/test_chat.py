@@ -1,13 +1,14 @@
 from fastapi.testclient import TestClient
 
-from ai_assistant.api import app
+from main import app
+from ai_assistant.api.constants import API_PREFIX
 
 client = TestClient(app)
 
 
 def test_chat_returns_response():
     response = client.post(
-        "/chat",
+        f"{API_PREFIX}/chat",
         json={
             "message":"Hello",
             },
@@ -19,7 +20,7 @@ def test_chat_returns_response():
 def test_chat_stream():
     with client.stream(
         "POST",
-        "/chat/stream",
+        f"{API_PREFIX}/chat/stream",
         json={"message": "Hello"},
     ) as response:
         assert response.status_code == 200
@@ -33,7 +34,7 @@ def test_chat_stream():
 
 def test_chat_rejects_empty_message():
     response = client.post(
-        "/chat",
+        f"{API_PREFIX}/chat",
         json={
             "message": "",
         },
@@ -44,7 +45,7 @@ def test_chat_rejects_empty_message():
 
 def test_stream_rejects_empty_message():
     response = client.post(
-        "/chat/stream",
+        f"{API_PREFIX}/chat/stream",
         json={
             "message": "",
         },
