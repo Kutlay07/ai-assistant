@@ -15,23 +15,34 @@ class FileMemory(BaseMemory):
         )
         
         
-    def _load_messages(self) -> list[str]:
+    def _load_messages(self) -> list[dict[str, str]]:
         if not self._path.exists():
             return []
-        
+
         with self._path.open("r", encoding="utf-8") as file:
             try:
                 messages = json.load(file)
             except json.JSONDecodeError:
                 return []
-            
-            if not isinstance(messages, list):
-                return []
-            
-            return messages
+
+        if not isinstance(messages, list):
+            return []
+
+        if messages and isinstance(messages[0], str):
+            messages = [
+                {
+                    "role": "user" if index % 2 == 0 else "assistant",
+                    "content": message,
+                }
+                for index, message in enumerate(messages)
+            ]
+
+            self._save_messages(messages)
+
+        return messages
         
         
-    def _save_messages(self, messages: list[str]):
+    def _save_messages(self, messages: list[dict[str, str]]):
         with self._path.open("w", encoding="utf-8",) as file:
             json.dump(
                 messages,
@@ -40,23 +51,21 @@ class FileMemory(BaseMemory):
                 ensure_ascii=False,
             )
         
-    def get_history(self) -> list[str]:
+    def get_history(self) -> list[dict[str, str]]:
         return self._load_messages()
         
         
     def get_messages(self) -> list[dict[str, str]]:
+        return self._load_messages()
+        
+    def add_message(self, role: str, content: str) -> None:
         messages = self._load_messages()
         
-        return [
+        messages.append(
             {
-                "role": "user" if index % 2 == 0 else "assistant",
-                "content": message,
+                "role": role,
+                "content": content,
             }
-            for index, message in enumerate(messages)
-        ]
-    def add_message(self, message: str) -> None:
-        messages = self._load_messages()
-        
-        messages.append(message)
+        )
         
         self._save_messages(messages)

@@ -14,10 +14,16 @@ def test_add_message(tmp_path):
 
     memory = FileMemory(path)
     
-    memory.add_message("Hello")
+    memory.add_message(
+    "user",
+    "Hello",
+    )
 
     assert memory.get_history() == [
-        "Hello",
+        {
+            "role": "user",
+            "content": "Hello",
+        }
     ]
 
 
@@ -26,26 +32,54 @@ def test_history_persists_between_instances(tmp_path):
 
     memory1 = FileMemory(path)
 
-    memory1.add_message("Hello")
+    memory1.add_message(
+    "user",
+    "Hello",
+    )
 
     memory2 = FileMemory(path)
 
     assert memory2.get_history() == [
-        "Hello",
+        {
+            "role": "user",
+            "content": "Hello",
+        }
     ]
 
 
 def test_multiple_messages(tmp_path):
-    path = tmp_path / "conversation.json"
+    memory = FileMemory(tmp_path / "memory.json")
 
-    memory = FileMemory(path)
-
-    memory.add_message("Hello")
-    memory.add_message("Hi")
-    memory.add_message("How are you?")
+    memory.add_message("user", "Hello")
+    memory.add_message("assistant", "Hi")
+    memory.add_message("user", "How are you?")
 
     assert memory.get_history() == [
-        "Hello",
-        "Hi",
-        "How are you?",
+        {
+            "role": "user",
+            "content": "Hello",
+        },
+        {
+            "role": "assistant",
+            "content": "Hi",
+        },
+        {
+            "role": "user",
+            "content": "How are you?",
+        },
+    ]
+
+
+def test_memory_preserves_roles(tmp_path):
+    memory = FileMemory(tmp_path / "memory.json")
+
+    memory.add_message("assistant", "Hello first")
+
+    messages = memory.get_messages()
+
+    assert messages == [
+        {
+            "role": "assistant",
+            "content": "Hello first",
+        }
     ]

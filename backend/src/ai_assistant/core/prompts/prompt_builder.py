@@ -18,14 +18,17 @@ class PromptBuilder:
     def build(
         self,
         request: Request,
-        history: Sequence[str],
+        history: Sequence[dict[str, str]],
         current_step: str | None = None,
         template: str = "chat",
         context: list[Chunk] | None = None
     ) -> str:
         template_text = self._load_template(template)
 
-        history_text = "\n".join(history)
+        history_text = "\n".join(
+            f"{message['role']}: {message['content']}"
+            for message in history
+        )
         
         context_text = ""
 

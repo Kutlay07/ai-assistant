@@ -29,8 +29,15 @@ class ChatWorkflow(BaseWorkflow):
         request: Request, 
         response: str,) -> None:
         
-        self._memory.add_message(request.input)
-        self._memory.add_message(response)
+        self._memory.add_message(
+            "user",
+            request.input,
+        )
+
+        self._memory.add_message(
+            "assistant",
+            response,
+        )
         
         
     def stream(

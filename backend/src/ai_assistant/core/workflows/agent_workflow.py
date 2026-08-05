@@ -49,7 +49,10 @@ class AgentWorkflow(BaseWorkflow):
                 "Tool executor is not configured."
             )
             
-        self._memory.add_message(request.input)
+        self._memory.add_message(
+            "user",
+            request.input,
+        )
         
         history = self._memory.get_history()
         
@@ -73,7 +76,10 @@ class AgentWorkflow(BaseWorkflow):
             
             tool_output = self._execute_tool(tool_call)
             
-            self._memory.add_message(tool_output)
+            self._memory.add_message(
+                "tool",
+                tool_output,
+            )
             
             history = self._memory.get_history()
         

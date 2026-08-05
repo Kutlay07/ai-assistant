@@ -32,14 +32,19 @@ def test_prompt_builder_includes_history():
     prompt = builder.build(
         request=Request(input="Hello"),
         history=[
-            "Hi",
-            "How are you?",
+            {
+                "role": "user",
+                "content": "Hello",
+            },
+            {
+                "role": "assistant",
+                "content": "Hi",
+            },
         ],
         current_step="Process request: Hello",
     )
 
     assert "Hi" in prompt
-    assert "How are you?" in prompt
 
 
 def test_prompt_contains_current_step():
