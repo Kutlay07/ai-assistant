@@ -10,18 +10,29 @@ def test_mock_memory_returns_empty_history():
 def test_mock_memory_stores_messages():
     memory = MockMemory()
 
-    memory.add_message("Hello")
+    memory.add_message("user","Hello")
 
-    assert memory.get_history() == ["Hello"]
+    assert memory.get_history() == [
+        {
+            "role": "user",
+            "content": "Hello",
+        }
+    ]
 
 
 def test_mock_memory_preserves_message_order():
     memory = MockMemory()
 
-    memory.add_message("Hello")
-    memory.add_message("How are you?")
+    memory.add_message("user", "Hello")
+    memory.add_message("user", "How are you?")
 
     assert memory.get_history() == [
-        "Hello",
-        "How are you?",
+        {
+            "role": "user",
+            "content": "Hello",
+        },
+        {
+            "role": "user",
+            "content": "How are you?",
+        },
     ]

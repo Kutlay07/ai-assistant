@@ -87,8 +87,15 @@ def test_agent_workflow_stores_messages():
 
     history = memory.get_history()
 
-    assert "Hello" in history
-    assert "tool result" in history
+    assert {
+        "role": "user",
+        "content": "Hello",
+    } in history
+
+    assert {
+        "role": "tool",
+        "content": "tool result",
+    } in history
 
 
 def test_agent_workflow_executes_plan_steps():
@@ -115,8 +122,9 @@ def test_agent_workflow_executes_plan_steps():
     tool_messages = [
         message
         for message in history
-        if message == "tool result"
+        if message["content"] == "tool result"
     ]
+    
     plan = MockPlanner().create_plan(
         Request(input="Hello")
     )
