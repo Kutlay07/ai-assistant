@@ -145,16 +145,20 @@ Completed:
 
 ---
 
-# Upcoming Milestones
 
-## v1.0.0 — Public Release
 
-Goals:
+## v1.0.0 — Stable Release
 
+Completed:
+
+- Full-stack architecture
+- React frontend
+- Backend/frontend integration
+- Streaming chat interface
+- Conversation history
+- Typing indicator
+- Loading and error states
 - Release-quality documentation
-- Installation guide
-- Usage examples
-- Documentation reorganization
 - Stable architecture
 - First public release
 

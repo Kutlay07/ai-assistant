@@ -116,27 +116,67 @@ Principles:
 
 ---
 
-# Running the API
+# Running the Application
 
-The project includes a FastAPI application for local development.
+The project consists of two separate applications:
 
-Start the development server:
+* **Backend** — FastAPI
+* **Frontend** — React + TypeScript
+
+Both applications should be running during local development.
+
+---
+
+## Backend
+
+Start the FastAPI development server:
 
 ```bash
 python -m fastapi dev src/ai_assistant/api/main.py
 ```
 
-API documentation:
+Interactive API documentation:
 
-```
+```text
 http://127.0.0.1:8000/docs
 ```
 
 ReDoc documentation:
 
-```
+```text
 http://127.0.0.1:8000/redoc
 ```
+
+---
+
+## Frontend
+
+Start the React development server:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The frontend will be available at:
+
+```text
+http://127.0.0.1:5173
+```
+
+---
+
+## Local Development
+
+During development:
+
+* Run both the backend and frontend simultaneously.
+* The frontend communicates with the backend through the `/api/v1` endpoints.
+* Chat responses are streamed in real time.
+* Conversation history is loaded automatically when the application starts.
+* The frontend displays loading states, typing indicators, and connection errors to improve the user experience.
+
 
 ---
 
