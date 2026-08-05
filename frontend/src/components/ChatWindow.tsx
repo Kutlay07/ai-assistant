@@ -29,9 +29,9 @@ export default function ChatWindow({
             >
             
             <div className="mx-auto max-w-4xl">
-                {messages.map((message) => (
+                {messages.map((message, index) => (
                     <Message
-                        key={message.content}
+                        key={index}
                         role={message.role}
                         content={message.content}
                         isTyping={message.isTyping}
