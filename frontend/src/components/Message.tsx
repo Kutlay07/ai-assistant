@@ -1,11 +1,15 @@
+import TypingIndicator from "./TypingIndicator";
+
 type MessageProps = {
     role: "user" | "assistant";
     content: string;
+    isTyping?: boolean,
 };
 
 export default function Message({
     role,
     content,
+    isTyping=false,
 }: MessageProps) {
     const isUser = role === "user";
 
@@ -37,7 +41,11 @@ export default function Message({
                     ${style}
                 `}
             >
-                <p>{content}</p>
+                {isTyping ? (
+                    <TypingIndicator />
+                ) : (
+                    <p>{content}</p>
+                )}
             </div>
         </div>
     );

@@ -44,6 +44,16 @@ class FileMemory(BaseMemory):
         return self._load_messages()
         
         
+    def get_messages(self) -> list[dict[str, str]]:
+        messages = self._load_messages()
+        
+        return [
+            {
+                "role": "user" if index % 2 == 0 else "assistant",
+                "content": message,
+            }
+            for index, message in enumerate(messages)
+        ]
     def add_message(self, message: str) -> None:
         messages = self._load_messages()
         

@@ -19,6 +19,10 @@ def create_memory() -> FileMemory:
     )
 
 
+def get_memory() -> FileMemory:
+    return create_memory()
+
+
 def create_search_service() -> SearchService:
     chunks = [
         Chunk(

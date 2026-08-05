@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 
+import type { Message } from "./types/chat";
+import { streamMessage, getHistory } from "./services/chatService";
 import Header from "./components/Header"
 import Sidebar from "./components/Sidebar"
 import ChatWindow from "./components/ChatWindow"
@@ -7,24 +9,96 @@ import ChatInput from "./components/ChatInput"
 
 
 export default function App() {
-    type ChatMessage = {
-        role: "user" | "assistant";
-        content: string;
-    };
 
-    const [messages, setMessages] = useState<ChatMessage[]>([]);
 
-    function handleSend(message: string) {
-        const newMessage: ChatMessage = {
+    const [messages, setMessages] = useState<Message[]>([]);
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    async function handleSend(message: string) {
+
+    setIsLoading(true);
+
+    try {
+
+        const userMessage: Message = {
             role: "user",
             content: message,
         };
-        
+
         setMessages((previousMessages) => [
             ...previousMessages,
-            newMessage,
+            userMessage,
         ]);
+
+        const assistantMessage: Message = {
+            role: "assistant",
+            content: "",
+            isTyping: true,
+        };
+
+        setMessages((previousMessages) => [
+            ...previousMessages,
+            assistantMessage,
+        ]);
+
+        await streamMessage(
+            message,
+            (chunk) => {
+                setMessages((previousMessages) => {
+                    const updatedMessages = [...previousMessages];
+
+                    const lastMessage =
+                        updatedMessages[updatedMessages.length - 1];
+
+                    updatedMessages[
+                        updatedMessages.length - 1
+                    ] = {
+                        ...lastMessage,
+                        isTyping: false,
+                        content: lastMessage.content + chunk,
+                    };
+
+                    return updatedMessages;
+                });
+            }
+        );
+
+        }
+        catch (error) {
+            console.error(error);
+
+            setMessages((previousMessages) => {
+
+                const updatedMessages = [...previousMessages];
+
+                updatedMessages[
+                    updatedMessages.length - 1
+                ] = {
+                    ...updatedMessages[updatedMessages.length - 1],
+                    isTyping: false,
+                    content: "⚠ Unable to connect to the server.",
+                };
+
+                return updatedMessages;
+            });
+        }
+    finally {
+
+        setIsLoading(false);
+
     }
+}
+
+    useEffect(() => {
+        async function loadHistory() {
+            const history = await getHistory();
+
+            setMessages(history);
+        }
+
+        loadHistory();
+    }, []);
 
     return (
         <div className="flex h-screen flex-col">
@@ -43,6 +117,7 @@ export default function App() {
 
                     <ChatInput 
                         onSend={handleSend}
+                        isLoading={isLoading}
                     />
 
                 </div>
@@ -51,4 +126,3 @@ export default function App() {
 
     );
 }
-

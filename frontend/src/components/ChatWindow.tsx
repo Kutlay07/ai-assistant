@@ -1,4 +1,5 @@
-import type { ChatMessage } from "../types/chat";
+import { useEffect, useRef } from "react";
+import type { Message as ChatMessage } from "../types/chat";
 
 import Message from "./Message";
 
@@ -9,6 +10,15 @@ type ChatWindowProps = {
 export default function ChatWindow({
     messages,
 }: ChatWindowProps) {
+
+    const bottomRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        bottomRef.current?.scrollIntoView({
+            behavior: "smooth",
+        });
+    }, [messages]);
+
     return (
         <main className="
                     flex-1
@@ -24,8 +34,12 @@ export default function ChatWindow({
                         key={message.content}
                         role={message.role}
                         content={message.content}
-                />
+                        isTyping={message.isTyping}
+                /> 
+                
             ))}
+            <div ref={bottomRef}/>
+            
             </div>
         </main>
     );
