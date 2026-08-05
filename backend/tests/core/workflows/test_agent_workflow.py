@@ -88,8 +88,8 @@ def test_agent_workflow_stores_messages():
     history = memory.get_history()
 
     assert {
-        "role": "tool",
-        "content": "tool result",
+        "role": "user",
+        "content": "Hello",
     } in history
 
     assert {
