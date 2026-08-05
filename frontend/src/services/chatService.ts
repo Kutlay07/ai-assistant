@@ -1,4 +1,5 @@
 import { post, get } from "../api/client";
+import { BASE_URL } from "../api/client";
 
 import type { 
     ChatRequest, 
@@ -27,7 +28,7 @@ export async function streamMessage(
 ): Promise<void> {
     
     const response = await fetch(
-        "http://127.0.0.1:8000/api/v1/chat/stream",
+        `${BASE_URL}/chat/stream`,
         {
             method: "POST",
             headers: {
