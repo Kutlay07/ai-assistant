@@ -22,6 +22,7 @@ export default function App() {
     try {
 
         const userMessage: Message = {
+            id: crypto.randomUUID(),
             role: "user",
             content: message,
         };
@@ -32,6 +33,7 @@ export default function App() {
         ]);
 
         const assistantMessage: Message = {
+            id: crypto.randomUUID(),
             role: "assistant",
             content: "",
             isTyping: true,
@@ -94,7 +96,12 @@ export default function App() {
         async function loadHistory() {
             const history = await getHistory();
 
-            setMessages(history);
+            setMessages(
+                history.map((message) =>({
+                    ...message,
+                    id: crypto.randomUUID(),
+                }))
+            );
         }
 
         loadHistory();
