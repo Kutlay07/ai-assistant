@@ -1,242 +1,174 @@
 # AI Assistant
 
-> A production-oriented AI assistant framework built from first principles with a strong focus on architecture, modularity, and provider independence.
+> A production-oriented AI assistant framework built from first principles with a strong focus on clean architecture, modularity, provider independence, and full-stack integration.
 
-![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.116+-009688?logo=fastapi&logoColor=white)
-![Tests](https://img.shields.io/badge/Tests-112_Passing-success)
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)
+![Tests](https://img.shields.io/badge/Tests-113_Passing-success)
 ![Architecture](https://img.shields.io/badge/Architecture-Clean-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
+---
 
+## 📸 Demo
 
+![AI Assistant Demo](docs/images/demo.png)
 
-## Architecture
+*A real-time conversation using the React frontend with Server-Sent Events (SSE) streaming.*
 
-The assistant is built around a modular, workflow-driven architecture with provider-independent abstractions and reusable components.
+---
 
-![System Architecture](docs/diagrams/system-architecture.png)
+## 🏛️ Architecture
 
-The project focuses on implementing the surrounding architecture from first principles while keeping language model providers interchangeable through clean abstractions.
+The AI Assistant is built around a modular, workflow-driven monorepo architecture featuring a **FastAPI** backend and a **Vite + React 19** frontend UI.
 
+![System Architecture](docs/diagrams/system-architecture.svg)
 
+The project emphasizes implementing all core AI assistant components from first principles while keeping language model providers, vector stores, and memory backends completely interchangeable through clean abstractions.
 
-## Project Goals
+---
 
-This project aims to understand and build the core components behind modern AI assistants from first principles before adopting higher-level frameworks.
+## 🎯 Project Goals & Philosophy
 
-Instead of treating AI frameworks as black boxes, every major subsystem is implemented independently to understand the underlying architecture, engineering decisions, and design trade-offs.
+This project aims to understand and construct the underlying subsystems behind modern AI assistants before adopting high-level black-box frameworks.
 
-The long-term objective is to evolve this project into a production-ready AI assistant framework by gradually integrating modern technologies such as Docker, Model Context Protocol (MCP), LangChain, LangGraph, vLLM, and other industry-standard tools while preserving a deep understanding of how every component works internally.
+Key principles:
+- **Build from First Principles**: Understand internal mechanisms before wrapping them in abstractions.
+- **Provider Independence**: Core application logic depends exclusively on abstract interfaces (`BaseLLM`, `BaseMemory`, `BaseRetriever`, `BaseTool`, `BasePlanner`), making concrete providers (Groq, OpenAI, local models) pluggable.
+- **Clean Architecture & Dependency Injection**: Strict decoupling between API layers, workflows, domain models, and external services.
+- **Full-Stack Execution**: End-to-end integration featuring real-time Server-Sent Events (SSE) streaming responses in the React UI.
 
+---
 
+## ✨ Features
 
-## Features
+- **Full-Stack UI**: Modern React 19 + TypeScript + TailwindCSS v4 web interface with SSE streaming support.
+- **Provider-Independent LLM Engine**: Supports Groq (`groq_provider.py`), Local models (`local_provider.py`), and Mock providers (`mock_llm.py`) through `LLMFactory`.
+- **Persistent Conversation Memory**: Role-aware persistent JSON conversation memory (`FileMemory`) supporting `system`, `user`, `assistant`, and `tool` message roles.
+- **Multi-Step Agent & Planning**: `AgentWorkflow` with `RuleBasedPlanner` and `ToolCallValidator` + `ToolRegistry` for tool calling execution.
+- **Retrieval-Augmented Generation (RAG)**: Complete document ingestion pipeline (`PDFLoader`, `TextLoader`, `TextSplitter`, `MockEmbedder`, `MockVectorStore`, `SearchService`).
+- **Real-Time Streaming**: FastAPI SSE streaming endpoint (`/v1/chat/stream`) for token-by-token live output.
+- **Production Testing**: 100% passing test suite with 113 automated unit & integration tests.
 
-- Built from first principles
-- Provider-independent architecture
-- Modular workflow system
-- Persistent conversation memory
-- Retrieval-Augmented Generation (RAG)
-- Custom document ingestion pipeline
-- Custom retrieval pipeline
-- Embedding abstractions
-- Vector store abstractions
-- Tool execution framework
-- Agent workflow foundation
-- Planning abstraction
-- FastAPI backend
-- Dependency Injection
-- Clean Architecture
-- Extensive documentation
-- Comprehensive automated tests
+---
 
+## 📁 Monorepo Structure
 
+```text
+ai-assistant/
+├── backend/                  # FastAPI Backend & Core AI Engine
+│   ├── main.py               # Application entry point
+│   ├── pyproject.toml        # Dependencies and pytest configuration
+│   ├── src/
+│   │   └── ai_assistant/
+│   │       ├── api/          # FastAPI endpoints (v1/chat, v1/health, v1/rag) & schemas
+│   │       └── core/         # Workflows, LLMs, Memory, RAG, Tools, Planners
+│   └── tests/                # 113 unit and integration tests
+├── frontend/                 # React 19 + Vite Web Application
+│   ├── src/                  # Chat UI components, SSE service, types
+│   ├── package.json
+│   └── vite.config.ts
+├── docs/                     # Comprehensive Project Documentation
+│   ├── architecture/         # Deep-dive architecture specs
+│   ├── decisions/            # Architecture Decision Records (ADR-0001, ADR-0002)
+│   ├── diagrams/             # Editable SVG architecture diagrams
+│   ├── development.md        # Development workflow guide
+│   └── roadmap.md            # Version roadmap and status
+└── README.md
+```
 
-## Philosophy
+---
 
-This project is not intended to be just another AI application.
+## 🚀 Quick Start
 
-Its primary goal is to understand how modern AI assistants work internally by building every major component from first principles before relying on higher-level frameworks.
-
-The project emphasizes:
-
-- Clean software architecture
-- Modular design
-- Provider independence
-- Incremental development
-- Production-ready engineering practices
-
-Frameworks are considered valuable engineering tools, but they should be introduced only after understanding the problems they solve.
-
-**The project intentionally prioritizes understanding before abstraction.**
-
-
-
-## Requirements
-
+### Prerequisites
 - Python 3.10+
+- Node.js 18+ & npm
 
-
-
-## Installation
-
-Clone the repository:
+### 1. Backend Setup
 
 ```bash
-git clone https://github.com/Kutlay07/ai-assistant.git
-cd ai-assistant
-```
+cd backend
 
-Create a virtual environment:
-
-```bash
+# Create and activate virtual environment
 python -m venv .venv
-```
 
-Activate it.
-
-### Windows
-
-```bash
+# Windows:
 .venv\Scripts\activate
-```
-
-### Linux / macOS
-
-```bash
+# Linux/macOS:
 source .venv/bin/activate
-```
 
-Install dependencies:
-
-```bash
+# Install dependencies
 pip install -r requirements.txt
 ```
 
+Start the FastAPI development server:
+```bash
+python main.py
+```
+* API Documentation (Swagger): `http://127.0.0.1:8000/docs`
+* ReDoc: `http://127.0.0.1:8000/redoc`
 
+### 2. Frontend Setup
 
-## Running the API
-
-Start the development server:
+In a new terminal window:
 
 ```bash
-python -m fastapi dev src/ai_assistant/api/main.py
+cd frontend
+
+# Install dependencies
+npm install
+
+# Start Vite dev server
+npm run dev
 ```
+Open `http://localhost:5173` in your browser.
 
-Interactive API documentation:
+---
 
-```
-http://127.0.0.1:8000/docs
-```
+## 🧪 Testing
 
-ReDoc documentation:
-
-```
-http://127.0.0.1:8000/redoc
-```
-
-
-
-## Project Structure
-
-```text
-src/
-└── ai_assistant/
-    ├── api/
-    ├── core/
-    ├── dependencies/
-    └── ...
-
-docs/
-├── architecture/
-├── decisions/
-├── diagrams/
-├── development.md
-└── roadmap.md
-
-tests/
-```
-
-
-
-## Documentation
-
-Detailed project documentation is available in the `docs/` directory.
-
-### Architecture
-
-- Assistant
-- Workflows
-- Memory
-- LLM
-- Retrieval
-- Planner
-- Tools
-- Lifecycle
-
-### Engineering
-
-- Development Workflow
-- Roadmap
-- Architecture Decision Records (ADRs)
-
-
-
-## Testing
-
-Run the complete test suite:
+Run the complete backend automated test suite:
 
 ```bash
-pytest
+cd backend
+python -m pytest
 ```
 
-Current status:
+Current test coverage:
+- **113 tests passed, 0 failed**
+- Unit tests for all core modules (LLMs, Memory, Workflows, Tools, RAG)
+- Integration tests for API endpoints & SSE streaming
 
-- 112+ automated tests
-- Unit tests
-- Integration tests
-
-
-
-## Roadmap
-
-**Current Version**
-
-**v1.0.0**
-
-Implemented components:
-
-- Assistant orchestration
-- Workflow system
-- Provider-independent LLM abstraction
-- Prompt builder
-- Persistent conversation memory
-- Retrieval-Augmented Generation (RAG)
-- Tool system
-- Agent workflow foundation
-- Planning abstraction
-- FastAPI backend
-- Comprehensive documentation
-- Automated test suite
-
-**Future milestones**
-
-- Better retrieval
-- Advanced agent reasoning
-- MCP integration
-- Docker support
-- Modern AI framework integrations
-- Web interface
-- Production deployment
-
-For the complete roadmap, see:
-
-```
-docs/roadmap.md
+Run frontend build verification:
+```bash
+cd frontend
+npm run build
 ```
 
+---
 
+## 🗺️ Roadmap & Release Status
 
-## License
+### Current Version: `v1.0.0 - Initial Stable Release`
+
+Completed Milestones:
+- [x] Full-Stack Web Interface (Vite + React 19 + TailwindCSS)
+- [x] Assistant Orchestrator & Workflows (`ChatWorkflow`, `RAGWorkflow`, `AgentWorkflow`)
+- [x] LLM Abstraction & Groq/Local/Mock Provider Integration (`LLMFactory`)
+- [x] Role-Based Persistent File Memory (`FileMemory`)
+- [x] Tool Calling & Execution Framework (`ToolRegistry`, `ToolCallValidator`)
+- [x] Agent Multi-Step Planning (`RuleBasedPlanner`)
+- [x] RAG Ingestion & Document Search Pipeline
+- [x] FastAPI REST & Real-Time SSE Streaming Endpoints
+- [x] Comprehensive Test Suite (113 passing tests)
+
+For future milestones (Docker containerization, MCP protocol integration, vLLM support), see [docs/roadmap.md](docs/roadmap.md).
+
+---
+
+## 📄 License
 
 This project is licensed under the MIT License.

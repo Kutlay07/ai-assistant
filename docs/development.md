@@ -4,11 +4,11 @@
 
 This document describes the development workflow followed throughout the AI Assistant project.
 
-The goal is to keep development incremental, architecture-driven, and production-oriented while maintaining clear documentation and engineering discipline.
+The project follows an architecture-first development process where every feature is designed, implemented, tested, documented, and reviewed before being merged. This workflow keeps the codebase modular, maintainable, and production-ready as it evolves.
 
 ---
 
-# Development Process
+# Development Lifecycle
 
 Every feature follows the same development cycle.
 
@@ -45,6 +45,7 @@ Guidelines:
 - Use dedicated branches for changes.
 - Keep commits small and focused.
 - Write meaningful commit messages.
+- Keep pull requests focused on a single logical change.
 - Submit pull requests for review.
 - Merge only after tests and documentation are complete.
 
@@ -97,6 +98,7 @@ Documentation is treated as part of the implementation process.
 Guidelines:
 
 - Keep documentation synchronized with code changes.
+- Keep diagrams synchronized with architectural changes.
 - Record architectural decisions using ADRs.
 - Update architecture documents when responsibilities change.
 - Explain why decisions were made, not only what was implemented.
@@ -112,28 +114,55 @@ Principles:
 - Prefer isolated unit tests.
 - Test public behavior instead of internal implementation details.
 - Add integration tests for workflows and major features.
+- New features should be accompanied by appropriate tests whenever possible.
 - Ensure tests pass before merging changes.
 
 ---
 
 # Running the Application
 
-The project consists of two separate applications:
+The project is structured as a monorepo consisting of two separate applications:
 
-* **Backend** — FastAPI
-* **Frontend** — React + TypeScript
+* **Backend** — FastAPI (`backend/`)
+* **Frontend** — React 19 + TypeScript (`frontend/`)
 
 Both applications should be running during local development.
 
 ---
 
-## Backend
+## Backend Setup & Execution
 
-Start the FastAPI development server:
+Navigate to the `backend/` directory:
 
 ```bash
-python -m fastapi dev src/ai_assistant/api/main.py
+cd backend
+python -m venv .venv
 ```
+
+Activate the virtual environment:
+
+**Windows**
+```bash
+.venv\Scripts\activate
+```
+
+**Linux / macOS**
+```bash
+source .venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Start the development server:
+
+```bash
+python main.py
+```
+
 
 Interactive API documentation:
 
@@ -147,11 +176,17 @@ ReDoc documentation:
 http://127.0.0.1:8000/redoc
 ```
 
+Run test suite:
+
+```bash
+python -m pytest
+```
+
 ---
 
-## Frontend
+## Frontend Setup & Execution
 
-Start the React development server:
+In a separate terminal, navigate to the `frontend/` directory:
 
 ```bash
 cd frontend
@@ -167,16 +202,14 @@ http://127.0.0.1:5173
 
 ---
 
-## Local Development
+## Local Development Flow
 
 During development:
 
 * Run both the backend and frontend simultaneously.
-* The frontend communicates with the backend through the `/api/v1` endpoints.
-* Chat responses are streamed in real time.
-* Conversation history is loaded automatically when the application starts.
-* The frontend displays loading states, typing indicators, and connection errors to improve the user experience.
-
+* The frontend communicates with the backend through the `/v1/chat` and `/v1/chat/stream` endpoints.
+* Chat responses are streamed in real time via SSE.
+* Conversation history is persisted between sessions through the configured memory backend.
 
 ---
 
@@ -190,7 +223,7 @@ A release should include:
 
 - Completed features
 - Updated documentation
-- Passing tests
+- Passing test suite
 - Stable architecture
 
 ---
@@ -201,5 +234,5 @@ The project's engineering principles are documented separately.
 
 See:
 
-- ADR-0001 — Project Philosophy
-- ADR-0002 — Provider Independence
+- [ADR-0001 — Project Philosophy](decisions/ADR-0001-project-philosophy.md)
+- [ADR-0002 — Provider Independence](decisions/ADR-0002-provider-independence.md)

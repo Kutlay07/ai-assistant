@@ -218,5 +218,7 @@ __marimo__/
 .streamlit/secrets.toml
 
 data/*.json
+backend/data/*.json
+anything/data/*.json
 
 frontend/node_modules/
