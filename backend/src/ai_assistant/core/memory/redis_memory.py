@@ -12,11 +12,16 @@ class RedisMemory(BaseMemory):
         port: int = 6379,
         ttl: int = 3600,
         key: str = "conversation",
+        client: redis.Redis | None = None,
     ):
-        self.client = redis.Redis(
-            host=host,
-            port=port,
-            decode_responses=True,
+        self.client = (
+            client
+            if client is not None
+            else redis.Redis(
+                host=host,
+                port=port,
+                decode_responses=True,
+            )
         )
 
         self.ttl = ttl
