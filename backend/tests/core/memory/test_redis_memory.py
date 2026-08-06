@@ -5,8 +5,8 @@ from ai_assistant.core.memory.redis_memory import RedisMemory
 
 
 def test_add_message_stores_message():
-    memory = RedisMemory()
-
+    memory = RedisMemory(client=MagicMock())
+    
     memory.client = MagicMock()
 
     memory.client.get.return_value = None
@@ -31,8 +31,9 @@ def test_add_message_stores_message():
 
 
 def test_get_history_returns_messages():
-    memory = RedisMemory()
-
+    
+    memory = RedisMemory(client=MagicMock())
+    
     memory.client = MagicMock()
 
     messages = [
@@ -50,8 +51,8 @@ def test_get_history_returns_messages():
 
 
 def test_get_history_returns_empty_when_missing():
-    memory = RedisMemory()
-
+    memory = RedisMemory(client=MagicMock())
+    
     memory.client = MagicMock()
 
     memory.client.get.return_value = None
