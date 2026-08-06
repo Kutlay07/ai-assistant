@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "ai-assistant"
 version = "1.1.0"
 description = "Production-ready AI Assistant Framework"
-readme = "../README.md"
+readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
 authors = [
@@ -17,6 +17,7 @@ dependencies = [
     # Web API
     "fastapi[standard]>=0.118.0",
     "uvicorn>=0.37.0",
+    "redis>=5.0.0",
 
     # LLM
     "openai>=2.0.0",
