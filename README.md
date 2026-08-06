@@ -2,15 +2,14 @@
 
 > A production-oriented AI assistant framework built from first principles with a strong focus on clean architecture, modularity, provider independence, and full-stack integration.
 
-![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.116+-009688?logo=fastapi&logoColor=white)
-![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?logo=typescript&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-6.0+-646CFF?logo=vite&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)
 ![Tests](https://img.shields.io/badge/Tests-113_Passing-success)
 ![Architecture](https://img.shields.io/badge/Architecture-Clean-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
-
 ---
 
 ## 📸 Demo
