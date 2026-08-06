@@ -42,7 +42,7 @@ export default function Header() {
                         hover:bg-neutral-700
                     "
                 >
-                    TukGPT
+                    AI assistant
                     <ChevronDown size={18} />
                 </button>
             </div>
