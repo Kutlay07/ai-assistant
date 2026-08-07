@@ -9,7 +9,7 @@ from ai_assistant.core.config import settings
 from ai_assistant.core.llms import GroqProvider
 
 pytestmark = pytest.mark.skipif(
-    not settings.get_llm_api_key(),
+    not settings.llm_api_key,
     reason="LLM_API_KEY is not configured.",
 )
 

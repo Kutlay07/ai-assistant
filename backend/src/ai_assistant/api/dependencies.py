@@ -15,7 +15,7 @@ from ai_assistant.core.config import settings
 
 def create_memory() -> FileMemory:
     return FileMemory(
-        settings.get_memory_path(),
+        settings.memory_path,
     )
 
 
