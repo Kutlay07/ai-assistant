@@ -9,9 +9,9 @@ from ..config import settings
 class GroqProvider(BaseLLM):
     
     def __init__(self):
-        api_key = settings.get_llm_api_key()
-        base_url = settings.get_llm_base_url()
-        model = settings.get_llm_model()
+        api_key = settings.llm_api_key
+        base_url = settings.llm_base_url
+        model = settings.llm_model
 
         if not api_key:
             raise ValueError("LLM_API_KEY is not configured.")

@@ -1,14 +1,15 @@
-from ..config import settings
+from ..config.settings import load_settings
 
 from .base_llm import BaseLLM
-from .mock_llm import MockLLM
 from .groq_provider import GroqProvider
 from .local_provider import LocalProvider
+from .mock_llm import MockLLM
 
 
 def create_llm() -> BaseLLM:
+    settings = load_settings()
 
-    provider = settings.get_llm_provider()
+    provider = settings.llm_provider
 
     if provider == "groq":
         return GroqProvider()

@@ -1,31 +1,40 @@
 from dotenv import load_dotenv
+from dataclasses import dataclass
 from pathlib import Path
-
 import os
 
 load_dotenv()
 
+@dataclass(frozen=True)
+class Settings:
+    llm_provider: str
+    llm_api_key: str | None
+    llm_model: str | None
+    llm_base_url: str | None
 
-def get_llm_provider() -> str:
-    return os.getenv("LLM_PROVIDER", "mock")
+    memory_path: Path
+
+    environment: str
+
+    def __post_init__(self):
+        if self.environment not in ("development", "production"):
+            raise ValueError("Invalid environment")
 
 
-def get_llm_api_key() -> str | None:
-    return os.getenv("LLM_API_KEY")
-
-
-def get_llm_model() -> str | None:
-    return os.getenv("LLM_MODEL")
-
-
-def get_llm_base_url() -> str | None:
-    return os.getenv("LLM_BASE_URL")
-
-
-def get_memory_path() -> Path:
-    return Path(
-        os.getenv(
-            "MEMORY_PATH",
-            "conversation.json",
-        )
+def load_settings() -> Settings:
+    return Settings(
+        llm_provider=os.getenv("LLM_PROVIDER", "mock"),
+        llm_api_key=os.getenv("LLM_API_KEY"),
+        llm_model=os.getenv("LLM_MODEL"),
+        llm_base_url=os.getenv("LLM_BASE_URL"),
+        memory_path=Path(
+            os.getenv("MEMORY_PATH", "conversation.json")
+        ),
+        environment=os.getenv(
+            "ENVIRONMENT",
+            "development",
+        ),
     )
+
+
+settings = load_settings()
