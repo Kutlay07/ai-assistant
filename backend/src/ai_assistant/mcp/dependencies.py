@@ -1,0 +1,33 @@
+from ..core.embedders import MockEmbedder
+from ..core.llms import MockLLM
+from ..core.memory import MockMemory
+from ..core.prompts import PromptBuilder
+from ..core.retrievers import MockRetriever
+from ..core.services import SearchService
+from ..core.vector_stores import MockVectorStore
+from ..core.workflows import RAGWorkflow
+
+
+embedder = MockEmbedder()
+
+vector_store = MockVectorStore()
+
+retriever = MockRetriever(
+    embedder=embedder,
+    vector_store=vector_store,
+)
+
+search_service = SearchService(
+    retriever=retriever,
+)
+
+llm = MockLLM()
+prompt_builder = PromptBuilder()
+memory = MockMemory()
+
+rag_workflow = RAGWorkflow(
+    llm=llm,
+    prompt_builder=prompt_builder,
+    search_service=search_service,
+    memory=memory,
+)
