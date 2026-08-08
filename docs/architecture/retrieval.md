@@ -85,13 +85,12 @@ The assistant communicates with vector storage providers through the `BaseVector
 
 ### Current Implementations
 
-- `MockVectorStore`
+- `PostgreSQLVectorStore`
 
 ### Planned Implementations
 
 - `ChromaVectorStore`
 - `FAISSVectorStore`
-- `PGVectorStore`
 - `PineconeVectorStore`
 
 

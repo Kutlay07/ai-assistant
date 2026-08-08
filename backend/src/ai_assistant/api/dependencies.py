@@ -6,7 +6,7 @@ from ai_assistant.core.models import Chunk
 from ai_assistant.core.prompts import PromptBuilder
 from ai_assistant.core.retrievers import MockRetriever
 from ai_assistant.core.services import SearchService
-from ai_assistant.core.vector_stores import MockVectorStore
+from ai_assistant.core.vector_stores import PostgreSQLVectorStore
 from ai_assistant.core.workflows import ChatWorkflow, RAGWorkflow
 from ai_assistant.core.tools import ToolRegistry, MockTool
 from ai_assistant.core.memory import FileMemory
@@ -38,8 +38,8 @@ def create_search_service() -> SearchService:
 
     embedder = SentenceTransformerEmbedder()
 
-    vector_store = MockVectorStore(
-        chunks=chunks,
+    vector_store = PostgreSQLVectorStore(
+        settings.postgres_connection_string,
     )
 
     retriever = MockRetriever(

@@ -13,6 +13,7 @@ class Settings:
     llm_base_url: str | None
 
     memory_path: Path
+    postgres_connection_string: str
 
     environment: str
 
@@ -28,7 +29,11 @@ def load_settings() -> Settings:
         llm_model=os.getenv("LLM_MODEL"),
         llm_base_url=os.getenv("LLM_BASE_URL"),
         memory_path=Path(
-            os.getenv("MEMORY_PATH", "conversation.json")
+            os.getenv("MEMORY_PATH", "conversation.json"),
+        ),
+        postgres_connection_string=os.getenv(
+            "POSTGRES_CONNECTION_STRING",
+            "postgresql://ai_assistant:ai_assistant@localhost:5432/ai_assistant",
         ),
         environment=os.getenv(
             "ENVIRONMENT",

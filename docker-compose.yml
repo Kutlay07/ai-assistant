@@ -1,12 +1,8 @@
-version: "3.9"
-
 services:
-
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
-
     ports:
       - "8000:8000"
 
@@ -14,12 +10,24 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-
     ports:
       - "3000:80"
 
   redis:
     image: redis:8-alpine
-
     ports:
       - "6379:6379"
+
+  postgres:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: ai_assistant
+      POSTGRES_PASSWORD: ai_assistant
+      POSTGRES_DB: ai_assistant
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
