@@ -27,6 +27,10 @@ dependencies = [
 
     # Validation
     "pydantic>=2.11.0",
+
+    "sentence-transformers",
+    "psycopg[binary]",
+    "pgvector",
 ]
 
 [project.optional-dependencies]
