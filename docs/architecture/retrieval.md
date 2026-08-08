@@ -56,11 +56,10 @@ The assistant communicates with embedding providers exclusively through the `Bas
 
 ### Current Implementations
 
-- `MockEmbedder`
+- `SentenceTransformerEmbedder`
 
 ### Planned Implementations
 
-- `SentenceTransformerEmbedder`
 - `OpenAIEmbedder`
 - `VoyageAIEmbedder`
 
