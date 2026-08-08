@@ -12,13 +12,14 @@ class PostgreSQLVectorStore(BaseVectorStore):
         register_vector(self._connection)
 
     def add(self, chunks: list[Chunk]) -> None:
+        for chunk in chunks:
+            if chunk.embedding is None:
+                raise ValueError(
+                    "Chunk must have an embedding before being added."
+                )
+
         with self._connection.cursor() as cursor:
             for chunk in chunks:
-                if chunk.embedding is None:
-                    raise ValueError(
-                        "Chunk must have an embedding before being added."
-                    )
-
                 cursor.execute(
                     """
                     INSERT INTO chunks (content, embedding)
