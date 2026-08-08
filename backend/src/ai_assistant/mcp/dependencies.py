@@ -1,4 +1,4 @@
-from ..core.embedders import MockEmbedder
+from ..core.embedders import SentenceTransformerEmbedder
 from ..core.llms import MockLLM
 from ..core.memory import MockMemory
 from ..core.prompts import PromptBuilder
@@ -8,7 +8,7 @@ from ..core.vector_stores import MockVectorStore
 from ..core.workflows import RAGWorkflow
 
 
-embedder = MockEmbedder()
+embedder = SentenceTransformerEmbedder()
 
 vector_store = MockVectorStore()
 

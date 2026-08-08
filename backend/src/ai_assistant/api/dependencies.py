@@ -1,6 +1,6 @@
 from ai_assistant.core.assistant import Assistant
 
-from ai_assistant.core.embedders import MockEmbedder
+from ai_assistant.core.embedders import SentenceTransformerEmbedder
 from ai_assistant.core.llms import create_llm
 from ai_assistant.core.models import Chunk
 from ai_assistant.core.prompts import PromptBuilder
@@ -36,7 +36,7 @@ def create_search_service() -> SearchService:
         ),
     ]
 
-    embedder = MockEmbedder()
+    embedder = SentenceTransformerEmbedder()
 
     vector_store = MockVectorStore(
         chunks=chunks,
